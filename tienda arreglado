@@ -1,10 +1,10 @@
 #include <iostream>
 using namespace std;
 class Productos{
-public:
-    int cod1p;
-    int cod1g;
-    int cod2p;
+public:                       //todo el programa obedece a una estandar 1 papitas 2 piqueos 3 gaseosas 
+    int cod1p;                //p por que es pequeño el objeto 
+    int cod1g;                //g por que es grande el objeto 
+    int cod2p;                //los nombres de las variables para candados o ingresar valores no tienen sentido especial
     int cod2g;
     int cod3p;
     int cod3g;
