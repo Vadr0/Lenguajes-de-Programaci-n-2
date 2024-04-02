@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <algorithm> // Necesario para remove_if
+#include <algorithm> // Necesario para remover o añadir
 using namespace std;
 
 class Producto {
