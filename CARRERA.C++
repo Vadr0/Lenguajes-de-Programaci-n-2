@@ -24,8 +24,8 @@ public:
     Carrera(int distancia, int dificultad) {
         while (distancia < 5000 || distancia > 6000) {
             cout << "¡Solo puedes elegir 5000m a 6000m para la distancia!" << endl;
-            cout << "Elige la distancia de la carrera (5000m a 6000m):" << endl;
-            cin >> distancia;
+            cout << "Elige la distancia de la carrera (5000m a 6000m) --> :" <<distancia<<endl; 
+
         }
         distanciaTotal = distancia;
 
@@ -36,22 +36,21 @@ public:
         } else if (dificultad >= 8 && dificultad <= 10) {
             dificultadOponente = dificultad;
             if (dificultadOponente >= 5 && dificultadOponente <= 10) {
-                cout << "acabas de perder :( La dificultad seleccionada es demasiado alta uyyyyyyyyyyy" << endl;
-                return; // Terminar la creación de la instancia
+                cout << "acabas de perder :( La dificultad seleccionada es demasiado alta " << endl;
+                return; // terminamos la creación de la instancia
             }
         } else {
             cout << "¡Solo puedes elegir 1, 2 o 3 para fácil, 4, 5, 6 o 7 para medio, y 8, 9 o 10 para difícil!" << endl;
-            dificultadOponente = 1; // Establecer un valor predeterminado
+            dificultadOponente = 1; // establecemos un valor predeterminado
         }
     }
 
-    void competir() {
-        // Lógica para la competencia
+    void competir() { 
         cout << "¡Comienza la carrera de " << distanciaTotal << " metros con dificultad " << dificultadOponente << "!" <<endl;
 
         if (dificultadOponente < 5) {
             cout << "VAMOOOOS. Has ganado la carrera " << endl;
-            return; // Terminar la competencia
+            return; // Termina la competencia
         }
 
     }
