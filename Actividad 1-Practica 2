@@ -1,0 +1,422 @@
+EJERCICIOS EN C++
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1.
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Animal {
+private:
+    string nombre;
+    int edad;
+    string tipo;
+
+public:
+    Animal(string nombre, int edad, string tipo) {
+        this->nombre = nombre;
+        this->edad = edad;
+        this->tipo = tipo;
+    }
+
+    void alimentar() {
+        cout << nombre << " está siendo alimentado." << endl;
+    }
+
+    void hacer_sonido() {
+        cout << nombre << " hace un sonido." << endl;
+    }
+};
+
+int main() {
+    Animal animal1("Perro", 3, "Mamífero");
+    Animal animal2("Gato", 5, "Mamífero");
+
+    animal1.alimentar();
+    animal1.hacer_sonido();
+
+    animal2.alimentar();
+    animal2.hacer_sonido();
+
+    return 0;
+}
+
+2.
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Coche {
+private:
+    string modelo;
+    int ao;
+    int velocidad;
+
+public:
+    Coche(string modelo, int año) {
+        this->modelo = modelo;
+        this->año = año;
+        velocidad = 0; // Al iniciar, la velocidad es cero
+    }
+
+    void acelerar(int incremento) {
+        velocidad += incremento;
+        cout << modelo << " ha acelerado a " << velocidad << " km/h." << endl;
+    }
+
+    void frenar(int decremento) {
+        if (velocidad - decremento >= 0) {
+            velocidad -= decremento;
+            cout << modelo << " ha frenado a " << velocidad << " km/h." << endl;
+        } else {
+            cout << "El coche ya está detenido." << endl;
+        }
+    }
+};
+
+int main() {
+    Coche coche1("Toyota Camry", 2022);
+    Coche coche2("Ford Mustang", 2023);
+
+    coche1.acelerar(50);
+    coche2.acelerar(70);
+
+    coche1.frenar(20);
+    coche2.frenar(100);
+
+    return 0;
+}
+
+3.
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Estudiante {
+private:
+    string nombre;
+    int edad;
+    string grado;
+
+public:
+    Estudiante(string nombre, int edad, string grado) {
+        this->nombre = nombre;
+        this->edad = edad;
+        this->grado = grado;
+    }
+
+    void tomarExamen(string examen) {
+        cout << nombre << " está tomando el examen de " << examen << "." << endl;
+    }
+
+    void calificar(string examen, int puntaje) {
+        cout << "El examen de " << examen << " de " << nombre << " ha sido calificado con " << puntaje << " puntos." << endl;
+    }
+};
+
+int main() {
+    Estudiante estudiante1("Juan", 20, "Segundo año");
+    Estudiante estudiante2("María", 21, "Tercer año");
+
+    estudiante1.tomarExamen("Matemáticas");
+    estudiante1.calificar("Matemáticas", 85);
+
+    estudiante2.tomarExamen("Historia");
+    estudiante2.calificar("Historia", 90);
+
+    return 0;
+}
+
+4.
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Tienda {
+private:
+    string nombre;
+    string direccion;
+    string tipo;
+    string producto;
+
+public:
+    Tienda(string nombre, string direccion, string tipo) {
+        this->nombre = nombre;
+        this->direccion = direccion;
+        this->tipo = tipo;
+    }
+
+    void agregarProducto(string producto) {
+        this->producto = producto;
+        cout << "Se ha agregado el producto '" << producto << "' a la tienda." << endl;
+    }
+
+    void venderProducto() {
+        if (!producto.empty()) {
+            cout << "Se ha vendido el producto '" << producto << "'." << endl;
+            producto = ""; // Se vende el producto y se elimina de la tienda
+        } else {
+            cout << "No hay productos disponibles en la tienda para vender." << endl;
+        }
+    }
+};
+
+int main() {
+    Tienda tienda1("Tienda A", "Calle 1, Ciudad X", "Ropa");
+    Tienda tienda2("Tienda B", "Calle 2, Ciudad Y", "Electrónica");
+
+    tienda1.agregarProducto("Camisa");
+    tienda1.venderProducto();
+
+    tienda2.agregarProducto("Teléfono");
+    tienda2.venderProducto();
+
+    return 0;
+}
+
+EJERCICIO EN PYTHON
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1.
+class Animal:
+    def __init__(self, nombre, edad, tipo):
+        self.nombre = nombre
+        self.edad = edad
+        self.tipo = tipo
+    
+    def alimentar(self):
+        print(f"{self.nombre} está siendo alimentado.")
+    
+    def hacer_sonido(self):
+        print(f"{self.nombre} hace un sonido.")
+
+animal1 = Animal("Perro", 3, "Mamífero")
+animal2 = Animal("Gato", 5, "Mamífero")
+
+animal1.alimentar()
+animal1.hacer_sonido()
+
+animal2.alimentar()
+animal2.hacer_sonido()
+
+2. 
+class Coche:
+    def __init__(self, modelo, año):
+        self.modelo = modelo
+        self.año = año
+        self.velocidad = 0
+
+    def acelerar(self, incremento):
+        self.velocidad += incremento
+        print(f"{self.modelo} ha acelerado a {self.velocidad} km/h.")
+
+    def frenar(self, decremento):
+        if self.velocidad - decremento >= 0:
+            self.velocidad -= decremento
+            print(f"{self.modelo} ha frenado a {self.velocidad} km/h.")
+        else:
+            print("El coche ya está detenido.")
+
+coche1 = Coche("Toyota Camry", 2022)
+coche2 = Coche("Ford Mustang", 2023)
+
+coche1.acelerar(50)
+coche2.acelerar(70)
+
+coche1.frenar(20)
+coche2.frenar(100)
+
+3.
+class Estudiante:
+    def __init__(self, nombre, edad, grado):
+        self.nombre = nombre
+        self.edad = edad
+        self.grado = grado
+
+    def tomar_examen(self, examen):
+        print(f"{self.nombre} está tomando el examen de {examen}.")
+
+    def calificar(self, examen, puntaje):
+        print(f"El examen de {examen} de {self.nombre} ha sido calificado con {puntaje} puntos.")
+
+estudiante1 = Estudiante("Juan", 20, "Segundo año")
+estudiante2 = Estudiante("María", 21, "Tercer año")
+
+estudiante1.tomar_examen("Matemáticas")
+estudiante1.calificar("Matemáticas", 85)
+
+estudiante2.tomar_examen("Historia")
+estudiante2.calificar("Historia", 90)
+
+4.
+class Tienda:
+    def __init__(self, nombre, direccion, tipo):
+        self.nombre = nombre
+        self.direccion = direccion
+        self.tipo = tipo
+        self.producto = ""
+
+    def agregar_producto(self, producto):
+        self.producto = producto
+        print(f"Se ha agregado el producto '{producto}' a la tienda.")
+
+    def vender_producto(self):
+        if self.producto:
+            print(f"Se ha vendido el producto '{self.producto}'.")
+            self.producto = ""
+        else:
+            print("No hay productos disponibles en la tienda para vender.")
+
+tienda1 = Tienda("Tienda A", "Calle 1, Ciudad X", "Ropa")
+tienda2 = Tienda("Tienda B", "Calle 2, Ciudad Y", "Electrónica")
+
+tienda1.agregar_producto("Camisa")
+tienda1.vender_producto()
+
+tienda2.agregar_producto("Teléfono")
+tienda2.vender_producto()
+
+EJERCICIO EN JAVA
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1.
+public class Animal {
+    private String nombre;
+    private int edad;
+    private String tipo;
+
+    public Animal(String nombre, int edad, String tipo) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.tipo = tipo;
+    }
+
+    public void alimentar() {
+        System.out.println(nombre + " está siendo alimentado.");
+    }
+
+    public void hacerSonido() {
+        System.out.println(nombre + " hace un sonido.");
+    }
+
+    public static void main(String[] args) {
+        Animal animal1 = new Animal("Perro", 3, "Mamífero");
+        Animal animal2 = new Animal("Gato", 5, "Mamífero");
+
+        animal1.alimentar();
+        animal1.hacerSonido();
+
+        animal2.alimentar();
+        animal2.hacerSonido();
+    }
+}
+
+2.
+public class Coche {
+    private String modelo;
+    private int año;
+    private int velocidad;
+
+    public Coche(String modelo, int año) {
+        this.modelo = modelo;
+        this.año = año;
+        this.velocidad = 0; // Al iniciar, la velocidad es cero
+    }
+
+    public void acelerar(int incremento) {
+        velocidad += incremento;
+        System.out.println(modelo + " ha acelerado a " + velocidad + " km/h.");
+    }
+
+    public void frenar(int decremento) {
+        if (velocidad - decremento >= 0) {
+            velocidad -= decremento;
+            System.out.println(modelo + " ha frenado a " + velocidad + " km/h.");
+        } else {
+            System.out.println("El coche ya está detenido.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Coche coche1 = new Coche("Toyota Camry", 2022);
+        Coche coche2 = new Coche("Ford Mustang", 2023);
+
+        coche1.acelerar(50);
+        coche2.acelerar(70);
+
+        coche1.frenar(20);
+        coche2.frenar(100);
+    }
+}
+
+3.
+public class Estudiante {
+    private String nombre;
+    private int edad;
+    private String grado;
+
+    public Estudiante(String nombre, int edad, String grado) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.grado = grado;
+    }
+
+    public void tomarExamen(String examen) {
+        System.out.println(nombre + " está tomando el examen de " + examen + ".");
+    }
+
+    public void calificar(String examen, int puntaje) {
+        System.out.println("El examen de " + examen + " de " + nombre + " ha sido calificado con " + puntaje + " puntos.");
+    }
+
+    public static void main(String[] args) {
+        Estudiante estudiante1 = new Estudiante("Juan", 20, "Segundo año");
+        Estudiante estudiante2 = new Estudiante("María", 21, "Tercer año");
+
+        estudiante1.tomarExamen("Matemáticas");
+        estudiante1.calificar("Matemáticas", 85);
+
+        estudiante2.tomarExamen("Historia");
+        estudiante2.calificar("Historia", 90);
+    }
+}
+
+4.
+public class Tienda {
+    private String nombre;
+    private String direccion;
+    private String tipo;
+    private String producto;
+
+    public Tienda(String nombre, String direccion, String tipo) {
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.tipo = tipo;
+    }
+
+    public void agregarProducto(String producto) {
+        this.producto = producto;
+        System.out.println("Se ha agregado el producto '" + producto + "' a la tienda.");
+    }
+
+    public void venderProducto() {
+        if (producto != null && !producto.isEmpty()) {
+            System.out.println("Se ha vendido el producto '" + producto + "'.");
+            producto = ""; // Se vende el producto y se elimina de la tienda
+        } else {
+            System.out.println("No hay productos disponibles en la tienda para vender.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Tienda tienda1 = new Tienda("Tienda A", "Calle 1, Ciudad X", "Ropa");
+        Tienda tienda2 = new Tienda("Tienda B", "Calle 2, Ciudad Y", "Electrónica");
+
+        tienda1.agregarProducto("Camisa");
+        tienda1.venderProducto();
+
+        tienda2.agregarProducto("Teléfono");
+        tienda2.venderProducto();
+    }
+}
