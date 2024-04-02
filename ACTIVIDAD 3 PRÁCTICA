@@ -1,0 +1,232 @@
+ACTIVIDAD 3:
+
+A.1) EN C++
+
+#include <iostream>
+using namespace std;
+
+class Persona {
+private:
+    string nombre;
+    int edad;
+
+public:
+    // Constructor
+    Persona(string nombre, int edad) {
+        this->nombre = nombre;
+        this->edad = edad;
+    }
+
+    // Métodos get y set
+    string getNombre() {
+        return nombre;
+    }
+
+    void setNombre(string nombre) {
+        this->nombre = nombre;
+    }
+
+    int getEdad() {
+        return edad;
+    }
+
+    void setEdad(int edad) {
+        this->edad = edad;
+    }
+};
+
+
+A.2) EN PYTHON
+
+class Persona:
+    def __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+
+    def getNombre(self):
+        return self.nombre
+
+    def setNombre(self, nombre):
+        self.nombre = nombre
+
+    def getEdad(self):
+        return self.edad
+
+    def setEdad(self, edad):
+        self.edad = edad
+
+
+A.3) EN JAVA
+
+public class Persona {
+    private String nombre;
+    private int edad;
+
+    // Constructor
+    public Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    // Métodos get y set
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+}
+B.1) En C++
+
+#include <iostream>
+using namespace std;
+
+// Definición de la clase
+class MiClase {
+public:
+    int valor;
+
+    // Constructor
+    MiClase(int v) {
+        valor = v;
+    }
+};
+
+int main() {
+    // Crear un arreglo de objetos
+    MiClase arreglo[3] = { MiClase(1), MiClase(2), MiClase(3) };
+
+    // Recorrer y manipular los objetos en el arreglo
+    for (int i = 0; i < 3; i++) {
+        cout << "Valor del objeto " << i << ": " << arreglo[i].valor << endl;
+    }
+
+    return 0;
+}
+
+
+B.2) En Python
+
+class MiClase:
+    def __init__(self, v):
+        self.valor = v
+
+# Crear una lista de objetos
+arreglo = [MiClase(1), MiClase(2), MiClase(3)]
+
+# Recorrer y manipular los objetos en la lista
+for i, objeto in enumerate(arreglo):
+    print(f"Valor del objeto {i}: {objeto.valor}")
+
+
+B.3) En Java
+
+public class Main {
+    // Definición de la clase
+    static class MiClase {
+        int valor;
+
+        // Constructor
+        public MiClase(int v) {
+            valor = v;
+        }
+    }
+
+    public static void main(String[] args) {
+        // Crear un arreglo de objetos
+        MiClase[] arreglo = {new MiClase(1), new MiClase(2), new MiClase(3)};
+
+        // Recorrer y manipular los objetos en el arreglo
+        for (int i = 0; i < 3; i++) {
+            System.out.println("Valor del objeto " + i + ": " + arreglo[i].valor);
+        }
+    }
+}
+
+EJERCICIO 3
+
+C.1) En C++
+
+#include <iostream>
+using namespace std;
+
+// Definición de la clase
+class MiClase {
+public:
+    int valor;
+
+    // Constructor
+    MiClase(int v) {
+        valor = v;
+    }
+};
+
+int main() {
+    // Crear un arreglo de objetos
+    MiClase arreglo[3] = { MiClase(1), MiClase(2), MiClase(3) };
+
+    // Agregar un objeto al final del arreglo
+    MiClase nuevoObjeto(4);
+    MiClase nuevoArreglo[4];
+
+    for (int i = 0; i < 3; i++) {
+        nuevoArreglo[i] = arreglo[i];
+    }
+
+    nuevoArreglo[3] = nuevoObjeto;
+
+    return 0;
+}
+
+
+C.2) En Python
+
+class MiClase:
+    def __init__(self, v):
+        self.valor = v
+
+# Crear una lista de objetos
+arreglo = [MiClase(1), MiClase(2), MiClase(3)]
+
+# Agregar un objeto al final de la lista
+nuevo_objeto = MiClase(4)
+nuevo_arreglo = arreglo + [nuevo_objeto]
+
+
+C.3) En Java
+
+public class Main {
+    // Definición de la clase
+    static class MiClase {
+        int valor;
+
+        // Constructor
+        public MiClase(int v) {
+            valor = v;
+        }
+    }
+
+    public static void main(String[] args) {
+        // Crear un arreglo de objetos
+        MiClase[] arreglo = {new MiClase(1), new MiClase(2), new MiClase(3)};
+
+        // Agregar un objeto al final del arreglo
+        MiClase nuevoObjeto = new MiClase(4);
+        MiClase[] nuevoArreglo = new MiClase[arreglo.length + 1];
+        
+        for (int i = 0; i < arreglo.length; i++) {
+            nuevoArreglo[i] = arreglo[i];
+        }
+        
+        nuevoArreglo[arreglo.length] = nuevoObjeto;
+    }
+}
