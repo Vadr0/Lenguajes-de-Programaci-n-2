@@ -1,0 +1,630 @@
+EJERCICIOS EN C++--------------------------------------------------
+1.
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Persona {
+private:
+    string nombre;
+    int edad;
+    string genero;
+
+public:
+    Persona(string n, int e, string g) {
+        nombre = n;
+        edad = e;
+        genero = g;
+    }
+
+    string getNombre() {
+        return nombre;
+    }
+
+    int getEdad() {
+        return edad;
+    }
+
+    string getGenero() {
+        return genero;
+    }
+
+    void setNombre(string n) {
+        nombre = n;
+    }
+
+    void setEdad(int e) {
+        edad = e;
+    }
+
+    void setGenero(string g) {
+        genero = g;
+    }
+};
+
+int main() {
+    Persona persona1("Juan", 25, "Masculino");
+    Persona persona2("Maria", 30, "Femenino");
+
+    cout << "Información de la persona 1:" << endl;
+    cout << "Nombre: " << persona1.getNombre() << endl;
+    cout << "Edad: " << persona1.getEdad() << endl;
+    cout << "Género: " << persona1.getGenero() << endl;
+
+    cout << "\nInformación de la persona 2:" << endl;
+    cout << "Nombre: " << persona2.getNombre() << endl;
+    cout << "Edad: " << persona2.getEdad() << endl;
+    cout << "Género: " << persona2.getGenero() << endl;
+
+    persona1.establecerEdad(27);
+    persona2.establecerNombre("Maria Elena");
+
+    cout << "\nDespués de actualizar la información:" << endl;
+    cout << "Nueva edad de persona 1: " << persona1.getEdad() << endl;
+    cout << "Nuevo nombre de persona 2: " << persona2.getNombre() << endl;
+
+    return 0;
+}
+
+2.
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class CuentaBancaria {
+private:
+    string numeroCuenta;
+    double saldo;
+
+public:
+    CuentaBancaria(string numero, double saldoInicial) {
+        numeroCuenta = numero;
+        saldo = saldoInicial;
+    }
+
+    string getNumeroCuenta() {
+        return numeroCuenta;
+    }
+
+    double getSaldo() {
+        return saldo;
+    }
+
+    void setNumeroCuenta(string numero) {
+        numeroCuenta = numero;
+    }
+
+    void setSaldo(double nuevoSaldo) {
+        saldo = nuevoSaldo;
+    }
+};
+
+int main() {
+    CuentaBancaria cuenta1("123456789", 1000.50);
+    CuentaBancaria cuenta2("987654321", 500.25);
+
+    cout << "Información de la cuenta 1:" << endl;
+    cout << "Número de cuenta: " << cuenta1.getNumeroCuenta() << endl;
+    cout << "Saldo: $" << cuenta1.getSaldo() << endl;
+
+    cout << "\nInformación de la cuenta 2:" << endl;
+    cout << "Número de cuenta: " << cuenta2.getNumeroCuenta() << endl;
+    cout << "Saldo: $" << cuenta2.getSaldo() << endl;
+
+    cuenta1.setSaldo(1500.75);
+    cuenta2.setNumeroCuenta("135792468");
+
+    cout << "\nDespués de actualizar la información:" << endl;
+    cout << "Nuevo saldo de cuenta 1: $" << cuenta1.getSaldo() << endl;
+    cout << "Nuevo número de cuenta de cuenta 2: " << cuenta2.getNumeroCuenta() << endl;
+
+    return 0;
+}
+
+3.
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Libro {
+private:
+    string titulo;
+    string autor;
+    string genero;
+
+public:
+    Libro(string tit, string aut, string gen) {
+        titulo = tit;
+        autor = aut;
+        genero = gen;
+    }
+
+    string getTitulo() {
+        return titulo;
+    }
+
+    string getAutor() {
+        return autor;
+    }
+
+    string getGenero() {
+        return genero;
+    }
+
+    void setTitulo(string tit) {
+        titulo = tit;
+    }
+
+    void setAutor(string aut) {
+        autor = aut;
+    }
+
+    void setGenero(string gen) {
+        genero = gen;
+    }
+};
+
+int main() {
+    Libro libro1("El señor de los anillos", "J.R.R. Tolkien", "Fantasía");
+    Libro libro2("Cien años de soledad", "Gabriel García Márquez", "Realismo mágico");
+
+    cout << "Información del libro 1:" << endl;
+    cout << "Título: " << libro1.getTitulo() << endl;
+    cout << "Autor: " << libro1.getAutor() << endl;
+    cout << "Género: " << libro1.getGenero() << endl;
+
+    cout << "\nInformación del libro 2:" << endl;
+    cout << "Título: " << libro2.getTitulo() << endl;
+    cout << "Autor: " << libro2.getAutor() << endl;
+    cout << "Género: " << libro2.getGenero() << endl;
+
+    libro1.setGenero("Aventura");
+    libro2.setAutor("Mario Vargas Llosa");
+
+    cout << "\nDespués de actualizar la información:" << endl;
+    cout << "Nuevo género del libro 1: " << libro1.getGenero() << endl;
+    cout << "Nuevo autor del libro 2: " << libro2.getAutor() << endl;
+
+    return 0;
+}
+
+3.
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Factura {
+private:
+    string numeroFactura;
+    string fechaEmision;
+    double monto;
+
+public:
+    Factura(string num, string fecha, double m) {
+        numeroFactura = num;
+        fechaEmision = fecha;
+        monto = m;
+    }
+
+    string getNumeroFactura() {
+        return numeroFactura;
+    }
+
+    string getFechaEmision() {
+        return fechaEmision;
+    }
+
+    double getMonto() {
+        return monto;
+    }
+
+    void setNumeroFactura(string num) {
+        numeroFactura = num;
+    }
+
+    void setFechaEmision(string fecha) {
+        fechaEmision = fecha;
+    }
+
+    void setMonto(double m) {
+        monto = m;
+    }
+};
+
+int main() {
+    Factura factura1("F001", "2024-04-02", 100.50);
+    Factura factura2("F002", "2024-04-03", 200.75);
+
+    cout << "Información de la factura 1:" << endl;
+    cout << "Número de factura: " << factura1.getNumeroFactura() << endl;
+    cout << "Fecha de emisión: " << factura1.getFechaEmision() << endl;
+    cout << "Monto: $" << factura1.getMonto() << endl;
+
+    cout << "\nInformación de la factura 2:" << endl;
+    cout << "Número de factura: " << factura2.getNumeroFactura() << endl;
+    cout << "Fecha de emisión: " << factura2.getFechaEmision() << endl;
+    cout << "Monto: $" << factura2.getMonto() << endl;
+
+    factura1.setMonto(150.25);
+    factura2.setFechaEmision("2024-04-04");
+
+    cout << "\nDespués de actualizar la información:" << endl;
+    cout << "Nuevo monto de factura 1: $" << factura1.getMonto() << endl;
+    cout << "Nueva fecha de emisión de factura 2: " << factura2.getFechaEmision() << endl;
+
+    return 0;
+}
+4.
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Factura {
+private:
+    string numeroFactura;
+    string fechaEmision;
+    double monto;
+
+public:
+    Factura(string num, string fecha, double m) {
+        numeroFactura = num;
+        fechaEmision = fecha;
+        monto = m;
+    }
+
+    string getNumeroFactura() {
+        return numeroFactura;
+    }
+
+    string getFechaEmision() {
+        return fechaEmision;
+    }
+
+    double getMonto() {
+        return monto;
+    }
+
+    void setNumeroFactura(string num) {
+        numeroFactura = num;
+    }
+
+    void setFechaEmision(string fecha) {
+        fechaEmision = fecha;
+    }
+
+    void setMonto(double m) {
+        monto = m;
+    }
+};
+
+int main() {
+    Factura factura1("F001", "2024-04-02", 100.50);
+    Factura factura2("F002", "2024-04-03", 200.75);
+
+    cout << "Información de la factura 1:" << endl;
+    cout << "Número de factura: " << factura1.getNumeroFactura() << endl;
+    cout << "Fecha de emisión: " << factura1.getFechaEmision() << endl;
+    cout << "Monto: $" << factura1.getMonto() << endl;
+
+    cout << "\nInformación de la factura 2:" << endl;
+    cout << "Número de factura: " << factura2.getNumeroFactura() << endl;
+    cout << "Fecha de emisión: " << factura2.getFechaEmision() << endl;
+    cout << "Monto: $" << factura2.getMonto() << endl;
+
+    factura1.setMonto(150.25);
+    factura2.setFechaEmision("2024-04-04");
+
+    cout << "\nDespués de actualizar la información:" << endl;
+    cout << "Nuevo monto de factura 1: $" << factura1.getMonto() << endl;
+    cout << "Nueva fecha de emisión de factura 2: " << factura2.getFechaEmision() << endl;
+
+    return 0;
+}
+
+EJERCICIOS EN PYTHON----------------------------------------------------------
+1.
+class Persona:
+    def __init__(self, nombre, edad, genero):
+        self.nombre = nombre
+        self.edad = edad
+        self.genero = genero
+
+    def getNombre(self):
+        return self.nombre
+
+    def getEdad(self):
+        return self.edad
+
+    def getGenero(self):
+        return self.genero
+
+    def setNombre(self, nombre):
+        self.nombre = nombre
+
+    def setEdad(self, edad):
+        self.edad = edad
+
+    def setGenero(self, genero):
+        self.genero = genero
+
+persona1 = Persona("Juan", 25, "Masculino")
+persona2 = Persona("Maria", 30, "Femenino")
+
+print("Información de la persona 1:")
+print("Nombre:", persona1.getNombre())
+print("Edad:", persona1.getEdad())
+print("Género:", persona1.getGenero())
+
+print("\nInformación de la persona 2:")
+print("Nombre:", persona2.getNombre())
+print("Edad:", persona2.getEdad())
+print("Género:", persona2.getGenero())
+
+persona1.setEdad(27)
+persona2.setNombre("Maria Elena")
+
+print("\nDespués de actualizar la información:")
+print("Nueva edad de persona 1:", persona1.getEdad())
+print("Nuevo nombre de persona 2:", persona2.getNombre())
+2.
+class CuentaBancaria:
+    def __init__(self, numero, saldoInicial):
+        self.numeroCuenta = numero
+        self.saldo = saldoInicial
+
+    def getNumeroCuenta(self):
+        return self.numeroCuenta
+
+    def getSaldo(self):
+        return self.saldo
+
+    def setNumeroCuenta(self, numero):
+        self.numeroCuenta = numero
+
+    def setSaldo(self, nuevoSaldo):
+        self.saldo = nuevoSaldo
+
+cuenta1 = CuentaBancaria("123456789", 1000.50)
+cuenta2 = CuentaBancaria("987654321", 500.25)
+
+print("Información de la cuenta 1:")
+print("Número de cuenta:", cuenta1.getNumeroCuenta())
+print("Saldo: $", cuenta1.getSaldo())
+
+print("\nInformación de la cuenta 2:")
+print("Número de cuenta:", cuenta2.getNumeroCuenta())
+print("Saldo: $", cuenta2.getSaldo())
+
+cuenta1.setSaldo(1500.75)
+cuenta2.setNumeroCuenta("135792468")
+
+print("\nDespués de actualizar la información:")
+print("Nuevo saldo de cuenta 1: $", cuenta1.getSaldo())
+print("Nuevo número de cuenta de cuenta 2:", cuenta2.getNumeroCuenta())
+3.
+class Libro:
+    def __init__(self, titulo, autor, genero):
+        self.titulo = titulo
+        self.autor = autor
+        self.genero = genero
+
+    def getTitulo(self):
+        return self.titulo
+
+    def getAutor(self):
+        return self.autor
+
+    def getGenero(self):
+        return self.genero
+
+    def setTitulo(self, titulo):
+        self.titulo = titulo
+
+    def setAutor(self, autor):
+        self.autor = autor
+
+    def setGenero(self, genero):
+        self.genero = genero
+
+libro1 = Libro("El señor de los anillos", "J.R.R. Tolkien", "Fantasía")
+libro2 = Libro("Cien años de soledad", "Gabriel García Márquez", "Realismo mágico")
+
+print("Información del libro 1:")
+print("Título:", libro1.getTitulo())
+print("Autor:", libro1.getAutor())
+print("Género:", libro1.getGenero())
+
+print("\nInformación del libro 2:")
+print("Título:", libro2.getTitulo())
+print("Autor:", libro2.getAutor())
+print("Género:", libro2.getGenero())
+
+libro1.setGenero("Aventura")
+libro2.setAutor("Mario Vargas Llosa")
+
+print("\nDespués de actualizar la información:")
+print("Nuevo género del libro 1:", libro1.getGenero())
+print("Nuevo autor del libro 2:", libro2.getAutor())
+4.
+class Factura:
+    def __init__(self, num, fecha, m):
+        self.numeroFactura = num
+        self.fechaEmision = fecha
+        self.monto = m
+
+    def getNumeroFactura(self):
+        return self.numeroFactura
+
+    def getFechaEmision(self):
+        return self.fechaEmision
+
+    def getMonto(self):
+        return self.monto
+
+    def setNumeroFactura(self, num):
+        self.numeroFactura = num
+
+    def setFechaEmision(self, fecha):
+        self.fechaEmision = fecha
+
+    def setMonto(self, m):
+        self.monto = m
+
+factura1 = Factura("F001", "2024-04-02", 100.50)
+factura2 = Factura("F002", "2024-04-03", 200.75)
+
+print("Información de la factura 1:")
+print("Número de factura:", factura1.getNumeroFactura())
+print("Fecha de emisión:", factura1.getFechaEmision())
+print("Monto: $", factura1.getMonto())
+
+print("\nInformación de la factura 2:")
+print("Número de factura:", factura2.getNumeroFactura())
+print("Fecha de emisión:", factura2.getFechaEmision())
+print("Monto: $", factura2.getMonto())
+
+factura1.setMonto(150.25)
+factura2.setFechaEmision("2024-04-04")
+
+EJERCICIOS EN JAVA---------------------------------------------------------------
+
+1.
+public class Persona {
+    private String nombre;
+    private int edad;
+    private String genero;
+
+    public Persona(String nombre, int edad, String genero) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.genero = genero;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+}
+2.
+public class CuentaBancaria {
+    private String numeroCuenta;
+    private double saldo;
+
+    public CuentaBancaria(String numero, double saldoInicial) {
+        numeroCuenta = numero;
+        saldo = saldoInicial;
+    }
+
+    public String getNumeroCuenta() {
+        return numeroCuenta;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setNumeroCuenta(String numero) {
+        numeroCuenta = numero;
+    }
+
+    public void setSaldo(double nuevoSaldo) {
+        saldo = nuevoSaldo;
+    }
+}
+3.
+public class Libro {
+    private String titulo;
+    private String autor;
+    private String genero;
+
+    public Libro(String titulo, String autor, String genero) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.genero = genero;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+}
+4.
+public class Factura {
+    private String numeroFactura;
+    private String fechaEmision;
+    private double monto;
+
+    public Factura(String num, String fecha, double m) {
+        numeroFactura = num;
+        fechaEmision = fecha;
+        monto = m;
+    }
+
+    public String getNumeroFactura() {
+        return numeroFactura;
+    }
+
+    public String getFechaEmision() {
+        return fechaEmision;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setNumeroFactura(String num) {
+        numeroFactura = num;
+    }
+
+    public void setFechaEmision(String fecha) {
+        fechaEmision = fecha;
+    }
+
+    public void setMonto(double m) {
+        monto = m;
+    }
+}
