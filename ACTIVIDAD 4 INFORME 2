@@ -1,0 +1,615 @@
+EJERCICIO 1
+
+A.1) EN C++
+
+class Libro:
+    def __init__(self, titulo, autor, numEjemplares):
+        self.titulo = titulo
+        self.autor = autor
+        self.numEjemplares = numEjemplares
+        self.numEjemplaresPrestados = 0
+
+    def prestamo(self):
+        if self.numEjemplares - self.numEjemplaresPrestados > 0:
+            self.numEjemplaresPrestados += 1
+            print(f"El libro '{self.titulo}' ha sido prestado.")
+        else:
+            print(f"No quedan ejemplares disponibles del libro '{self.titulo}' para prestar.")
+
+    def devolucion(self):
+        if self.numEjemplaresPrestados > 0:
+            self.numEjemplaresPrestados -= 1
+            print(f"El libro '{self.titulo}' ha sido devuelto.")
+        else:
+            print(f"No hay ejemplares prestados del libro '{self.titulo}'.")
+
+
+class Biblioteca:
+    def prestar_libro(self, libro):
+        libro.prestamo()
+
+    def devolver_libro(self, libro):
+        libro.devolucion()
+
+
+if __name__ == "__main__":
+    libro1 = Libro("Libro 1", "Autor 1", 5)
+    libro2 = Libro("Libro 2", "Autor 2", 3)
+
+    biblioteca = Biblioteca()
+    biblioteca.prestar_libro(libro1)
+    biblioteca.prestar_libro(libro2)
+    biblioteca.prestar_libro(libro1)
+    biblioteca.devolver_libro(libro2)
+    biblioteca.devolver_libro(libro1)
+
+A.2) EN PYHTON
+class Libro:
+    def __init__(self, titulo, autor, numEjemplares):
+        self.titulo = titulo
+        self.autor = autor
+        self.numEjemplares = numEjemplares
+        self.numEjemplaresPrestados = 0
+
+    def prestamo(self):
+        if self.numEjemplares - self.numEjemplaresPrestados > 0:
+            self.numEjemplaresPrestados += 1
+            print(f"El libro '{self.titulo}' ha sido prestado.")
+        else:
+            print(f"No quedan ejemplares disponibles del libro '{self.titulo}' para prestar.")
+
+    def devolucion(self):
+        if self.numEjemplaresPrestados > 0:
+            self.numEjemplaresPrestados -= 1
+            print(f"El libro '{self.titulo}' ha sido devuelto.")
+        else:
+            print(f"No hay ejemplares prestados del libro '{self.titulo}'.")
+
+
+class Biblioteca:
+    def prestar_libro(self, libro):
+        libro.prestamo()
+
+    def devolver_libro(self, libro):
+        libro.devolucion()
+
+
+if __name__ == "__main__":
+    libro1 = Libro("Libro 1", "Autor 1", 5)
+    libro2 = Libro("Libro 2", "Autor 2", 3)
+
+    biblioteca = Biblioteca()
+    biblioteca.prestar_libro(libro1)
+    biblioteca.prestar_libro(libro2)
+    biblioteca.prestar_libro(libro1)
+    biblioteca.devolver_libro(libro2)
+    biblioteca.devolver_libro(libro1)
+
+
+A.3) EN JAVA
+
+class Libro {
+    private String titulo;
+    private String autor;
+    private int numEjemplares;
+    private int numEjemplaresPrestados;
+
+    public Libro(String titulo, String autor, int numEjemplares) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.numEjemplares = numEjemplares;
+        this.numEjemplaresPrestados = 0;
+    }
+
+    public void prestamo() {
+        if (numEjemplares - numEjemplaresPrestados > 0) {
+            numEjemplaresPrestados++;
+            System.out.println("El libro '" + titulo + "' ha sido prestado.");
+        } else {
+            System.out.println("No quedan ejemplares disponibles del libro '" + titulo + "' para prestar.");
+        }
+    }
+
+    public void devolucion() {
+        if (numEjemplaresPrestados > 0) {
+            numEjemplaresPrestados--;
+            System.out.println("El libro '" + titulo + "' ha sido devuelto.");
+        } else {
+            System.out.println("No hay ejemplares prestados del libro '" + titulo + "'.");
+        }
+    }
+}
+
+class Biblioteca {
+    public void prestarLibro(Libro libro) {
+        libro.prestamo();
+    }
+
+    public void devolverLibro(Libro libro) {
+        libro.devolucion();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Libro libro1 = new Libro("Libro 1", "Autor 1", 5);
+        Libro libro2 = new Libro("Libro 2", "Autor 2", 3);
+        
+        Biblioteca biblioteca = new Biblioteca();
+        biblioteca.prestarLibro(libro1);
+        biblioteca.prestarLibro(libro2);
+        biblioteca.prestarLibro(libro1);
+        biblioteca.devolverLibro(libro2);
+        biblioteca.devolverLibro(libro1);
+    }
+}
+
+
+
+EJERCICIO 2
+
+B.1) EN C++
+#include <iostream>
+using namespace std;
+
+
+class Producto {
+public:
+    string nombre;
+    double precio;
+    Producto(string nombre, double precio) {  // Constructor
+        this->nombre = nombre;
+        this->precio = precio;
+    }
+};
+
+
+class Factura {
+public:
+    Producto* productos[100];
+    int contador;
+    Factura() {   // Constructor
+        contador = 0;
+    }
+    void agregarProducto(Producto* producto) {
+        productos[contador] = producto;
+        contador++;
+    }
+};
+
+
+int main() {
+    Producto producto1("Producto 1", 10.99);      // Obejtos para crear los productos de las facutras
+    Producto producto2("Producto 2", 5.99);
+    Producto producto3("Producto 3", 7.50);
+    Factura factura;
+    factura.agregarProducto(&producto1);   //los productos que se agregan
+    factura.agregarProducto(&producto2);
+    factura.agregarProducto(&producto3);
+    cout << "Productos en la factura:" << endl;
+    for (int i = 0; i < factura.contador; i++) {
+        Producto* producto = factura.productos[i];
+        cout << "Nombre: " << producto->nombre << ", Precio: $" << producto->precio << endl;
+    }
+    return 0;
+}
+
+
+
+B.2) EN PYTHON
+
+class Producto:
+    def __init__(self, nombre, precio):
+        self.nombre = nombre
+        self.precio = precio
+
+
+class Factura:
+    def __init__(self):
+        self.productos = []
+    
+    def agregar_producto(self, producto):
+        self.productos.append(producto)
+
+
+if __name__ == "__main__":
+    producto1 = Producto("Producto 1", 10.99)
+    producto2 = Producto("Producto 2", 5.99)
+    producto3 = Producto("Producto 3", 7.50)
+    
+    factura = Factura()
+    factura.agregar_producto(producto1)
+    factura.agregar_producto(producto2)
+    factura.agregar_producto(producto3)
+    
+    print("Productos en la factura:")
+    for producto in factura.productos:
+        print("Nombre:", producto.nombre, ", Precio: $", producto.precio)
+
+
+B.3) EN JAVA
+
+class Producto {
+    String nombre;
+    double precio;
+
+    public Producto(String nombre, double precio) {
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+}
+
+class Factura {
+    Producto[] productos;
+    int contador;
+
+    public Factura() {
+        productos = new Producto[100];
+        contador = 0;
+    }
+
+    public void agregarProducto(Producto producto) {
+        productos[contador] = producto;
+        contador++;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Producto producto1 = new Producto("Producto 1", 10.99);
+        Producto producto2 = new Producto("Producto 2", 5.99);
+        Producto producto3 = new Producto("Producto 3", 7.50);
+
+        Factura factura = new Factura();
+        factura.agregarProducto(producto1);
+        factura.agregarProducto(producto2);
+        factura.agregarProducto(producto3);
+
+        System.out.println("Productos en la factura:");
+        for (int i = 0; i < factura.contador; i++) {
+            Producto producto = factura.productos[i];
+            System.out.println("Nombre: " + producto.nombre + ", Precio: $" + producto.precio);
+        }
+    }
+}
+
+EJERCICIO 3
+C.1) EN C++
+
+#include <iostream>
+using namespace std;
+class Rueda {
+public:
+    void cambiarRueda() {
+        cout << "La rueda ha sido cambiada." << endl;
+    }
+};
+
+
+class Carro {
+private:
+    Rueda ruedas[4];
+public:
+    void moverCarro() {
+        cout << "El carro se está moviendo." << endl;
+    }
+    void cambiarRuedas() {
+        for (int i = 0; i < 4; i++) {
+            ruedas[i].cambiarRueda();
+        }
+    }
+};
+
+
+int main() {
+    Carro miCarro;
+    miCarro.moverCarro();
+
+
+    miCarro.cambiarRuedas();
+
+
+    return 0;
+}
+
+
+C.2) EN PYTHON
+
+class Rueda:
+    def cambiar_rueda(self):
+        print("La rueda ha sido cambiada.")
+
+
+class Carro:
+    def __init__(self):
+        self.ruedas = [Rueda() for _ in range(4)]
+
+    def mover_carro(self):
+        print("El carro se está moviendo.")
+
+    def cambiar_ruedas(self):
+        for rueda in self.ruedas:
+            rueda.cambiar_rueda()
+
+
+if __name__ == "__main__":
+    mi_carro = Carro()
+    mi_carro.mover_carro()
+    mi_carro.cambiar_ruedas()
+
+
+C.3) EN JAVA
+
+class Rueda {
+    public void cambiarRueda() {
+        System.out.println("La rueda ha sido cambiada.");
+    }
+}
+
+class Carro {
+    private Rueda[] ruedas;
+
+    public Carro() {
+        this.ruedas = new Rueda[4];
+        for (int i = 0; i < 4; i++) {
+            this.ruedas[i] = new Rueda();
+        }
+    }
+
+    public void moverCarro() {
+        System.out.println("El carro se está moviendo.");
+    }
+
+    public void cambiarRuedas() {
+        for (Rueda rueda : this.ruedas) {
+            rueda.cambiarRueda();
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Carro miCarro = new Carro();
+        miCarro.moverCarro();
+        miCarro.cambiarRuedas();
+    }
+}
+
+
+EJERCICIO 4
+D.1) EN C++
+
+código:
+#include <iostream>
+#include <string>
+
+
+using namespace std;
+class Producto {
+public:
+    string nombre;
+    float precio;
+};
+class Tienda {
+private:
+    Producto productosDisponibles[100];
+    int numProductosDisponibles;
+    Producto comprasClientes[100];
+    int numComprasClientes;
+public:
+    Tienda() {
+        numProductosDisponibles = 0;
+        numComprasClientes = 0;
+    }
+    void agregarProducto(Producto producto) {
+        productosDisponibles[numProductosDisponibles] = producto;
+        numProductosDisponibles++;
+    }
+    void agregarCompra(Producto producto) {
+        comprasClientes[numComprasClientes] = producto;
+        numComprasClientes++;
+    }
+    void mostrarProductosDisponibles() {
+        cout << "Productos disponibles en la tienda:" << endl;
+        for (int i = 0; i < numProductosDisponibles; i++) {
+            cout << "Nombre: " << productosDisponibles[i].nombre << ", Precio: " << productosDisponibles[i].precio << endl;
+        }
+    }
+    void mostrarComprasCliente() {
+        cout << "Compras realizadas por el cliente:" << endl;
+        for (int i = 0; i < numComprasClientes; i++) {
+            cout << "Nombre: " << comprasClientes[i].nombre << ", Precio: " << comprasClientes[i].precio << endl;
+        }
+    }
+};
+class Cliente {
+public:
+    string nombre;
+    void agregarProductoCompra(Tienda& tienda, Producto producto) {
+        tienda.agregarCompra(producto);
+    }
+    void pagarCuenta() {
+        cout << "El cliente " << nombre << " ha pagado la cuenta." << endl;
+    }
+};
+int main() {
+    Tienda tienda;
+    Cliente cliente;
+
+
+    Producto producto1;
+    producto1.nombre = "Polo";
+    producto1.precio = 50.90;
+
+
+    Producto producto2;
+    producto2.nombre = "Pantalón";
+    producto2.precio = 70.90;
+
+
+    tienda.agregarProducto(producto1);
+    tienda.agregarProducto(producto2);
+
+
+    cliente.nombre = "Juan";
+    cliente.agregarProductoCompra(tienda, producto1);
+    cliente.agregarProductoCompra(tienda, producto2);
+
+
+    tienda.mostrarProductosDisponibles();
+    cliente.pagarCuenta();
+    tienda.mostrarComprasCliente();
+
+
+    return 0;
+}
+
+
+D.2) EN PYTHON
+
+class Producto:
+    def __init__(self, nombre, precio):
+        self.nombre = nombre
+        self.precio = precio
+
+class Tienda:
+    def __init__(self):
+        self.productos_disponibles = []
+        self.num_productos_disponibles = 0
+        self.compras_clientes = []
+        self.num_compras_clientes = 0
+
+    def agregar_producto(self, producto):
+        self.productos_disponibles.append(producto)
+        self.num_productos_disponibles += 1
+
+    def agregar_compra(self, producto):
+        self.compras_clientes.append(producto)
+        self.num_compras_clientes += 1
+
+    def mostrar_productos_disponibles(self):
+        print("Productos disponibles en la tienda:")
+        for producto in self.productos_disponibles:
+            print("Nombre:", producto.nombre, ", Precio:", producto.precio)
+
+    def mostrar_compras_cliente(self):
+        print("Compras realizadas por el cliente:")
+        for producto in self.compras_clientes:
+            print("Nombre:", producto.nombre, ", Precio:", producto.precio)
+
+class Cliente:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def agregar_producto_compra(self, tienda, producto):
+        tienda.agregar_compra(producto)
+
+    def pagar_cuenta(self):
+        print("El cliente", self.nombre, "ha pagado la cuenta.")
+
+if __name__ == "__main__":
+    tienda = Tienda()
+    cliente = Cliente("Juan")
+
+    producto1 = Producto("Polo", 50.90)
+    producto2 = Producto("Pantalón", 70.90)
+
+    tienda.agregar_producto(producto1)
+    tienda.agregar_producto(producto2)
+
+    cliente.agregar_producto_compra(tienda, producto1)
+    cliente.agregar_producto_compra(tienda, producto2)
+
+    tienda.mostrar_productos_disponibles()
+    cliente.pagar_cuenta()
+    tienda.mostrar_compras_cliente()
+
+
+D.3) EN JAVA
+
+class Producto {
+    String nombre;
+    float precio;
+
+    public Producto(String nombre, float precio) {
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+}
+
+class Tienda {
+    Producto[] productosDisponibles;
+    int numProductosDisponibles;
+    Producto[] comprasClientes;
+    int numComprasClientes;
+
+    public Tienda() {
+        productosDisponibles = new Producto[100];
+        numProductosDisponibles = 0;
+        comprasClientes = new Producto[100];
+        numComprasClientes = 0;
+    }
+
+    public void agregarProducto(Producto producto) {
+        productosDisponibles[numProductosDisponibles] = producto;
+        numProductosDisponibles++;
+    }
+
+    public void agregarCompra(Producto producto) {
+        comprasClientes[numComprasClientes] = producto;
+        numComprasClientes++;
+    }
+
+    public void mostrarProductosDisponibles() {
+        System.out.println("Productos disponibles en la tienda:");
+        for (int i = 0; i < numProductosDisponibles; i++) {
+            System.out.println("Nombre: " + productosDisponibles[i].nombre + ", Precio: " + productosDisponibles[i].precio);
+        }
+    }
+
+    public void mostrarComprasCliente() {
+        System.out.println("Compras realizadas por el cliente:");
+        for (int i = 0; i < numComprasClientes; i++) {
+            System.out.println("Nombre: " + comprasClientes[i].nombre + ", Precio: " + comprasClientes[i].precio);
+        }
+    }
+}
+
+class Cliente {
+    String nombre;
+
+    public Cliente(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void agregarProductoCompra(Tienda tienda, Producto producto) {
+        tienda.agregarCompra(producto);
+    }
+
+    public void pagarCuenta() {
+        System.out.println("El cliente " + nombre + " ha pagado la cuenta.");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Tienda tienda = new Tienda();
+        Cliente cliente = new Cliente("Juan");
+
+        Producto producto1 = new Producto("Polo", 50.90f);
+        Producto producto2 = new Producto("Pantalón", 70.90f);
+
+        tienda.agregarProducto(producto1);
+        tienda.agregarProducto(producto2);
+
+        cliente.agregarProductoCompra(tienda, producto1);
+        cliente.agregarProductoCompra(tienda, producto2);
+
+        tienda.mostrarProductosDisponibles();
+        cliente.pagarCuenta();
+        tienda.mostrarComprasCliente();
+    }
+}
+
+
+
