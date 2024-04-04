@@ -117,7 +117,7 @@ int opcionAvion;
     cin >> opcionTanque;
     tanqueLleno = (opcionTanque == 1);
 
-    int combustibleActual = (tanqueLleno) ? 1000 : 0;  // Assuming 1000 units of fuel for a full tank and 0 for an empty tank
+    int combustibleActual = (tanqueLleno) ? 1000 : 0;  
     if (m.verificarCombustibleSuficiente(combustibleActual, tanqueLleno)) {
         cout << "El avión tiene suficiente combustible va a despegar con éxito. " << endl;
         switch (opcionAvion) {
