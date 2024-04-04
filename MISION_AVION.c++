@@ -22,7 +22,7 @@ public:
     bool verificarCombustibleSuficiente(int combustibleActual, bool tanqueLleno) {
         // Verificar si el avión tiene suficiente combustible for completar la misión
         if (tanqueLleno) {
-            return true;  // Always return true if the tank is full
+            return true;  
         } else {
             if (combustibleActual >= duracion * 10) {
                 return true;
