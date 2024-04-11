@@ -1,0 +1,115 @@
+#include <iostream>
+using namespace std;
+const int MAX_ESTUDIANTES = 10;
+const int MAX_CURSOS = 5;
+class Curso;
+class Estudiante 
+{
+    private:
+        string nombre;
+        string apellido;
+        Curso* cursos[MAX_CURSOS];  
+        int numCursos;
+
+    public:
+        Estudiante(string nombre, string apellido) : nombre(nombre), apellido(apellido), numCursos(0) {}
+        void agregarCurso(Curso* curso) {
+            if (numCursos < MAX_CURSOS) {
+                cursos[numCursos++] = curso;
+                curso->agregarEstudiante(this); // Establecer la relación bidireccional
+            }
+        }
+        void eliminarCurso(Curso* curso) {
+            for (int i = 0; i < numCursos; ++i) {
+                if (cursos[i] == curso) {
+                    cursos[i] = nullptr;
+                    // Reorganizar el arreglo si es necesario
+                    for (int j = i; j < numCursos - 1; ++j) {
+                        cursos[j] = cursos[j + 1];
+                    }
+                    cursos[numCursos - 1] = nullptr;
+                    numCursos--;
+                    curso->eliminarEstudiante(this); // Romper la relación bidireccional
+                    break;
+                }
+            }
+        }
+        void imprimirCursos() const {
+            cout << "Cursos inscritos por " << nombre << " " << apellido << ":" << endl;
+            for (int i = 0; i < numCursos; ++i) {
+                if (cursos[i] != nullptr) {
+                    cout << "- " << cursos[i]->getNombre() << endl;
+                }
+            }
+            cout << endl;
+        }
+
+        string getNombre() const { return nombre; }
+        string getApellido() const { return apellido; }
+};
+
+class Curso 
+{
+    private:
+        string nombre;
+        Estudiante* estudiantes[MAX_ESTUDIANTES];
+        int numEstudiantes;
+
+    public:
+        Curso(string nombre) : nombre(nombre), numEstudiantes(0) {}
+        void agregarEstudiante(Estudiante* estudiante) {
+            if (numEstudiantes < MAX_ESTUDIANTES) {
+                estudiantes[numEstudiantes++] = estudiante;
+            }
+        }
+        void eliminarEstudiante(Estudiante* estudiante) {
+            for (int i = 0; i < numEstudiantes; ++i) {
+                if (estudiantes[i] == estudiante) {
+                    estudiantes[i] = nullptr;
+                    // Reorganizar el arreglo si es necesario
+                    for (int j = i; j < numEstudiantes - 1; ++j) {
+                        estudiantes[j] = estudiantes[j + 1];
+                    }
+                    estudiantes[numEstudiantes - 1] = nullptr;
+                    numEstudiantes--;
+                    break;
+                }
+            }
+        }
+        void imprimirEstudiantes() const {
+            cout << "Estudiantes inscritos en el curso " << nombre << ":" << endl;
+            for (int i = 0; i < numEstudiantes; ++i) {
+                if (estudiantes[i] != nullptr) {
+                    cout << "- " << estudiantes[i]->getNombre() << " " << estudiantes[i]->getApellido() << endl;
+                }
+            }
+        }
+
+        string getNombre() const { return nombre; }
+};
+
+int main() {
+    Estudiante estudiante1("Juan", "Pérez");
+    Estudiante estudiante2("María", "Gómez");
+
+    Curso curso1("LP I");
+    Curso curso2("LP II");
+
+    // Establecer relaciones bidireccionales
+    estudiante1.agregarCurso(&curso1);
+    estudiante1.agregarCurso(&curso2);
+    estudiante2.agregarCurso(&curso1);
+
+    curso1.imprimirEstudiantes();
+    curso2.imprimirEstudiantes();
+
+    estudiante1.imprimirCursos();
+    estudiante2.imprimirCursos();
+
+    estudiante1.eliminarCurso(&curso2);
+
+    curso2.imprimirEstudiantes();
+    estudiante1.imprimirCursos();
+
+    return 0;
+}
