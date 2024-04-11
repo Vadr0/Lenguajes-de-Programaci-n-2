@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+
+const int MAX_HIJOS = 5;
+class Hijo;
+class Padre {
+    private:
+        string nombre;
+        Hijo* hijos[MAX_HIJOS];
+        int numHijos;
+
+    public:
+        Padre(string nombre) : nombre(nombre), numHijos(0) {}
+
+        string getNombre() const { return nombre; }
+        void setNombre(string nombre) { this->nombre = nombre; }
+        void agregarHijo(Hijo* hijo) {
+            if (numHijos < MAX_HIJOS) {
+                hijos[numHijos++] = hijo;
+            }
+        }
+        void imprimirInfo() const {
+            cout << "Nombre del Padre: " << nombre << endl;
+            cout << "Número de Hijos: " << numHijos << endl;
+        }
+};
+
+class Hijo {
+private:
+    string nombre;
+
+public:
+    Hijo(string nombre) : nombre(nombre) {}
+    string getNombre() const { return nombre; }
+    void setNombre(string nombre) { this->nombre = nombre; }
+};
+
+int main() {
+    Padre padre("Padre Juan");
+
+    Hijo hijo1("Hijo Alvaro");
+    Hijo hijo2("Hijo Orlando");
+    Hijo hijo3("Hijo Paul");
+
+    // Relacionar los hijos con el padre
+    padre.agregarHijo(&hijo1);
+    padre.agregarHijo(&hijo2);
+    padre.agregarHijo(&hijo3);
+
+    // Imprimir información del padre
+    padre.imprimirInfo();
+
+    return 0;
+}
