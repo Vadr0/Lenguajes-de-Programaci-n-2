@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+
+const int MAX_TRABAJADORES = 10;  //se usaaráa como arreglo
+class Trabajador 
+{
+    private:
+        string nombre;
+        Trabajador* companeros[MAX_TRABAJADORES];
+        int numCompaneros;
+
+    public:
+        Trabajador(string nombre) : nombre(nombre), numCompaneros(0) {}
+        void agregarCompanero(Trabajador* otro) //(establecer la relación reflexiva)
+        {
+            if (numCompaneros < MAX_TRABAJADORES && otro != this) {
+                companeros[numCompaneros++] = otro;
+            }
+        }
+
+        string getNombre() const {
+            return nombre;
+        }
+        void mostrarCompaneros() const {
+            cout << "Compañeros de " << nombre << ": ";
+            for (int i = 0; i < numCompaneros; ++i) {
+                cout << companeros[i]->getNombre() << " ";
+            }
+            cout << endl;
+        }
+};
+class Gerente : public Trabajador {
+private:
+    Trabajador* trabajadoresACargo[MAX_TRABAJADORES];
+    int numTrabajadores;
+
+public:
+    Gerente(string nombre) : Trabajador(nombre), numTrabajadores(0) {}
+
+    void agregarTrabajador(Trabajador* trabajador) {
+        if (numTrabajadores < MAX_TRABAJADORES) {
+            trabajadoresACargo[numTrabajadores++] = trabajador;
+        }
+    }
+    void mostrarTrabajadoresACargo() const {
+        cout << "Trabajadores a cargo de " << getNombre() << ": ";
+        for (int i = 0; i < numTrabajadores; ++i) {
+            cout << trabajadoresACargo[i]->getNombre() << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Trabajador* juan = new Trabajador("Juan");
+    Trabajador* maria = new Trabajador("Maria");
+    Trabajador* pedro = new Trabajador("Pedro");
+    Gerente* ana = new Gerente("Ana");
+
+    juan->agregarCompanero(maria);
+    maria->agregarCompanero(pedro);
+
+    // Agregar trabajadores bajo el cargo del gerente
+    ana->agregarTrabajador(juan);
+    ana->agregarTrabajador(maria);
+    ana->agregarTrabajador(pedro);
+
+    // Mostrar información sobre las relaciones
+    juan->mostrarCompaneros(); 
+    maria->mostrarCompaneros(); 
+    ana->mostrarTrabajadoresACargo(); 
+    
+
+    return 0;
+}
