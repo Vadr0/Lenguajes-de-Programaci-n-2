@@ -1,0 +1,69 @@
+#include <iostream>
+using namespace std;
+const int MAX_TRABAJADORES = 10; //arreglo
+class Trabajador 
+{
+    public:
+        Trabajador(int id, string nombre) : id(id), nombre(nombre) {}
+
+        int getId() const { return id; }
+        string getNombre() const { return nombre; }
+
+        void agregarCompanero(Trabajador* companero) // Método para establecer la asociación reflexiva con otros trabajadores
+        { 
+            if (numCompaneros < MAX_TRABAJADORES) 
+            {
+                companeros[numCompaneros++] = companero;
+            } 
+            else 
+            {
+                cout << "No se pueden agregar más compañeros, límite alcanzado." << endl;
+            }
+        }
+        void mostrarCompaneros() const 
+        {
+            cout << "Compañeros de " << nombre << ":" << endl;
+            for (int i = 0; i < numCompaneros; ++i) 
+            {
+                cout << "- " << companeros[i]->getNombre() << endl;
+            }
+        }
+
+    protected:
+        int id;
+        string nombre;
+        Trabajador* companeros[MAX_TRABAJADORES]; 
+        int numCompaneros = 0; 
+};
+
+class Gerente : public Trabajador {
+    public:
+        Gerente(int id, string nombre, string area) : Trabajador(id, nombre), area(area) {}
+
+        string getArea() const { return area; }
+
+    private:
+        string area;
+};
+
+int main() {
+    Trabajador* trabajador1 = new Trabajador(1, "Juan");      // Crear instancias de Trabajadores
+    Trabajador* trabajador2 = new Trabajador(2, "María");
+    Trabajador* trabajador3 = new Trabajador(3, "Carlos");
+
+    Gerente* gerente1 = new Gerente(101, "Ana", "Ventas");
+
+    // Establecer relaciones entre trabajadores bajo el mismo gerente
+    trabajador1->agregarCompanero(trabajador2);
+    trabajador1->agregarCompanero(trabajador3);
+
+    cout << "Información de compañeros de trabajo:" << endl;
+    trabajador1->mostrarCompaneros();
+
+    delete trabajador1;
+    delete trabajador2;
+    delete trabajador3;
+    delete gerente1;
+
+    return 0;
+}
