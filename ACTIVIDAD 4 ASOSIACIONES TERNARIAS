@@ -1,0 +1,70 @@
+#include <iostream>
+using namespace std;
+class Estudiante 
+{
+    public:
+        Estudiante(int id, string nombre) : id(id), nombre(nombre) {}
+        int getId() const { return id; }
+        string getNombre() const { return nombre; }
+    private:
+        int id;
+        string nombre;
+};
+class Docente 
+{
+    public:
+        Docente(int id, string nombre) : id(id), nombre(nombre) {}
+        int getId() const { return id; }
+        string getNombre() const { return nombre; }
+    private:
+        int id;
+        string nombre;
+};
+
+class Curso 
+{
+    public:
+        Curso(int codigo, string nombre) : codigo(codigo), nombre(nombre) {}
+        int getCodigo() const { return codigo; }
+        string getNombre() const { return nombre; }
+    private:
+        int codigo;
+        string nombre;
+};
+class Asociacion 
+{
+    public:
+        Asociacion(Estudiante* estudiante, Docente* docente, Curso* curso)
+            : estudiante(estudiante), docente(docente), curso(curso) {}
+
+        Estudiante* getEstudiante() const { return estudiante; }
+        Docente* getDocente() const { return docente; }
+        Curso* getCurso() const { return curso; }
+
+    private:
+        Estudiante* estudiante;
+        Docente* docente;
+        Curso* curso;
+};
+
+int main() {
+    // Instancias de Estudiante, Docente y Curso
+    Estudiante* estudiante1 = new Estudiante(1, "Paul Ordoñez");
+    Docente* docente1 = new Docente(101, "Puchicanas");
+    Curso* curso1 = new Curso(5001, "LP 2");
+
+    // Crear una instancia de Asociacion para representar la relación
+    Asociacion* asociacion1 = new Asociacion(estudiante1, docente1, curso1);
+
+    // Acceder a la información a través de las asociaciones
+    cout << "Estudiante: " << asociacion1->getEstudiante()->getNombre() << endl;
+    cout << "Docente: " << asociacion1->getDocente()->getNombre() << endl;
+    cout << "Curso: " << asociacion1->getCurso()->getNombre() << endl;
+
+    delete asociacion1;
+    delete estudiante1;
+    delete docente1;
+    delete curso1;
+
+    return 0;
+}
