@@ -1,0 +1,83 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+// Declaración anticipada de la clase ObjetoAgregado para resolver el problema de dependencia circular
+class ObjetoAgregado;
+
+// Definición de la clase base que representa la entidad principal
+class EntidadPrincipal {
+private:
+    std::vector<ObjetoAgregado*> objetosAgregados; // Atributo que representa la colección de objetos agregados
+public:
+    // Método para agregar objetos a la colección
+    void agregarObjeto(ObjetoAgregado* objeto);
+
+    // Método para eliminar objetos de la colección
+    void eliminarObjeto(ObjetoAgregado* objeto);
+
+    // Método para obtener un objeto específico de la colección por identificador
+    ObjetoAgregado* obtenerObjeto(int identificador);
+};
+
+// Definición de la clase de los objetos que se agregarán a la colección
+class ObjetoAgregado {
+private:
+    int identificador;
+public:
+    ObjetoAgregado(int id) : identificador(id) {}
+
+    int getIdentificador() const {
+        return identificador;
+    }
+    
+    // Otros atributos y métodos propios que se utilizarán posteriormente
+};
+
+// Implementación de los métodos de la clase EntidadPrincipal
+void EntidadPrincipal::agregarObjeto(ObjetoAgregado* objeto) {
+    objetosAgregados.push_back(objeto);
+}
+
+void EntidadPrincipal::eliminarObjeto(ObjetoAgregado* objeto) {
+    for (auto it = objetosAgregados.begin(); it != objetosAgregados.end(); ++it) {
+        if (*it == objeto) {
+            objetosAgregados.erase(it);
+            break;
+        }
+    }
+}
+
+ObjetoAgregado* EntidadPrincipal::obtenerObjeto(int identificador) {
+    for (auto objeto : objetosAgregados) {
+        if (objeto->getIdentificador() == identificador) {
+            return objeto;
+        }
+    }
+    return nullptr;
+}
+
+int main() {
+    // Crear un objeto de la clase base
+    EntidadPrincipal entidadPrincipal;
+
+    // Crear varios objetos de la clase que se agregarán a la colección
+    ObjetoAgregado objeto1(1);
+    ObjetoAgregado objeto2(2);
+    ObjetoAgregado objeto3(3);
+
+    // Agregar los objetos a la colección
+    entidadPrincipal.agregarObjeto(&objeto1);
+    entidadPrincipal.agregarObjeto(&objeto2);
+    entidadPrincipal.agregarObjeto(&objeto3);
+
+    // Acceder a los objetos de la colección utilizando el método implementado en la clase base
+    ObjetoAgregado* objetoRecuperado = entidadPrincipal.obtenerObjeto(2);
+    if (objetoRecuperado != nullptr) {
+        cout << "Objeto recuperado: " << objetoRecuperado->getIdentificador() <<endl;
+    }
+
+    // Modificar y eliminar objetos de la colección utilizando los métodos implementados en la clase base
+    entidadPrincipal.eliminarObjeto(&objeto2);
+
+    return 0;
+}
