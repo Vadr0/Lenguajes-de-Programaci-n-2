@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class Estudiante {
+private:
+    string nombre;
+    int edad;
+public:
+    Estudiante(string nombre, int edad) : nombre(nombre), edad(edad) {}
+    string getNombre() const { return nombre; } // Ahora es const
+    int getEdad() const { return edad; } // Ahora es const
+};
+
+class Curso {
+private:
+    string nombre;
+    vector<Estudiante> estudiantes;
+public:
+    Curso(string nombre) : nombre(nombre) {}
+    void agregarEstudiante(const Estudiante& estudiante) { // Cambio aquí
+        estudiantes.push_back(estudiante);
+    }
+    void imprimirEstudiantes() const { // Ahora es const
+        cout << "Estudiantes del curso " << nombre << ":" << endl;
+        for (const auto& estudiante : estudiantes) {
+            cout << "- " << estudiante.getNombre() << ", " << estudiante.getEdad() << " años" << endl;
+        }
+    }
+};
+
+//programa principal
+int main() {
+    // Crear estudiantes
+    Estudiante estudiante1("Juan", 20);
+    Estudiante estudiante2("Ana", 22);
+
+    // Crear curso y agregar estudiantes
+    Curso curso1("Programación I");
+    curso1.agregarEstudiante(estudiante1);
+    curso1.agregarEstudiante(estudiante2);
+
+    // Imprimir estudiantes del curso
+    curso1.imprimirEstudiantes();
+
+    return 0;
+}
