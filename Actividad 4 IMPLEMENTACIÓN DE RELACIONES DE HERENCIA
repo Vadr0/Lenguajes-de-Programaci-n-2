@@ -1,0 +1,43 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Empleado {
+public:
+    Empleado(string nombre, double salario) : nombre_(nombre), salario_(salario) {}
+    virtual ~Empleado() {}
+    virtual double calcularSalario() const {
+        return salario_;
+    }
+protected:
+    string nombre_;
+    double salario_;
+};
+
+class Gerente : public Empleado {
+public:
+    Gerente(string nombre, double salario, double bono) : Empleado(nombre, salario), bono_(bono) {}
+    ~Gerente() {}
+    double calcularSalario() const override {
+        return salario_ + bono_;
+    }
+private:
+    double bono_;
+};
+
+int main() {
+    Empleado* emp1 = new Empleado("Juan Perez", 1000.0);
+    Empleado* emp2 = new Empleado("Maria Rodriguez", 2000.0);
+    Gerente* gerente1 = new Gerente("Pedro Gomez", 3000.0, 1000.0);
+
+    cout << emp1->nombre_ << " tiene un salario de " << emp1->calcularSalario() << endl;
+    cout << emp2->nombre_ << " tiene un salario de " << emp2->calcularSalario() << endl;
+    cout << gerente1->nombre_ << " tiene un salario de " << gerente1->calcularSalario() << endl;
+
+    delete emp1;
+    delete emp2;
+    delete gerente1;
+
+    return 0;
+}
