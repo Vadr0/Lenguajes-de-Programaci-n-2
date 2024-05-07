@@ -1,0 +1,88 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+class Alumno {
+private:
+    string nombre;
+    int edad;
+    float promedio;
+
+public:
+    Alumno(string nombre, int edad, float promedio) : nombre(nombre), edad(edad), promedio(promedio) {}
+
+    string getNombre() const { return nombre; }
+    int getEdad() const { return edad; }
+    float getPromedio() const { return promedio; }
+
+    string toString() const {
+        return "Nombre: " + nombre + ", Edad: " + to_string(edad) + ", Promedio: " + to_string(promedio);
+    }
+
+    bool operator<(const Alumno& otro) const {
+        return promedio < otro.promedio;
+    }
+};
+
+class Grupo {
+private:
+    vector<Alumno> alumnos;
+    int capacidad;
+
+public:
+    Grupo(int capacidad) : capacidad(capacidad) {}
+
+    void agregarAlumno(string nombre, int edad, float promedio) {
+        if (alumnos.size() < capacidad) {
+            Alumno alumno(nombre, edad, promedio);
+            alumnos.push_back(alumno);
+        }
+    }
+
+    string toString() const {
+        string result = "Grupo:\n";
+        for (const auto& alumno : alumnos) {
+            result += alumno.toString() + "\n";
+        }
+        return result;
+    }
+
+    void ordenarPorPromedio() {
+        sort(alumnos.begin(), alumnos.end());
+    }
+
+    float promedioGrupo() const {
+        float sumaPromedios = 0.0;
+        for (const auto& alumno : alumnos) {
+            sumaPromedios += alumno.getPromedio();
+        }
+        return alumnos.empty() ? 0 : sumaPromedios / alumnos.size();
+    }
+
+    Alumno mejorPromedio() const {
+        if (alumnos.empty()) {
+            return Alumno("Sin alumnos", 0, -1);
+        }
+        return *max_element(alumnos.begin(), alumnos.end());
+    }
+};
+
+int main() {
+    Grupo grupo(5);
+    grupo.agregarAlumno("Juan", 18, 8.5);
+    grupo.agregarAlumno("María", 19, 9.2);
+    grupo.agregarAlumno("Pedro", 20, 7.8);
+    grupo.agregarAlumno("Ana", 21, 8.9);
+    grupo.agregarAlumno("Luis", 22, 9.7);
+
+    grupo.ordenarPorPromedio();
+
+    cout << grupo.toString() << endl;
+    cout << "Promedio de los promedios: " << grupo.promedioGrupo() << endl;
+    cout << "Mejor promedio: " << grupo.mejorPromedio().toString() << endl;
+
+    return 0;
+}
