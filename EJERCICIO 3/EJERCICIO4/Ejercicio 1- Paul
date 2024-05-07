@@ -1,0 +1,118 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+class Alumno {
+private:
+    string nombre;
+    int edad;
+    float promedio;
+
+public:
+    Alumno(string nombre, int edad, float promedio) {
+        this->nombre = nombre;
+        this->edad = edad;
+        this->promedio = promedio;
+    }
+
+    string getNombre() const {
+        return nombre;
+    }
+
+    int getEdad() const {
+        return edad;
+    }
+
+    float getPromedio() const {
+        return promedio;
+    }
+
+    friend ostream& operator<<(ostream& os, const Alumno& alumno) {
+        os << "Nombre: " << alumno.nombre << ", Edad: " << alumno.edad << ", Promedio: " << alumno.promedio;
+        return os;
+    }
+
+    bool operator<(const Alumno& otro) const {
+        return promedio < otro.promedio;
+    }
+};
+
+class Grupo {
+private:
+    vector<Alumno> alumnos;
+    int cantidad;
+
+public:
+    Grupo(int cantidad) {
+        this->cantidad = cantidad;
+        alumnos.reserve(cantidad);
+    }
+
+    void agregar_alumno(string nombre, int edad, float promedio) {
+        if (alumnos.size() < cantidad) {
+            alumnos.push_back(Alumno(nombre, edad, promedio));
+        } else {
+            cout << "El grupo ya está lleno." << endl;
+        }
+    }
+
+    // Implementación del ordenamiento manualmente (Bubble Sort)
+    void ordenar_por_promedio() {
+        for (int i = 0; i < alumnos.size() - 1; ++i) {
+            for (int j = 0; j < alumnos.size() - i - 1; ++j) {
+                if (alumnos[j].getPromedio() > alumnos[j + 1].getPromedio()) {
+                    swap(alumnos[j], alumnos[j + 1]);
+                }
+            }
+        }
+    }
+
+    float promedio_grupo() {
+        float totalPromedios = 0.0;
+        for (const auto& alumno : alumnos) {
+            totalPromedios += alumno.getPromedio();
+        }
+        return totalPromedios / alumnos.size();
+    }
+
+    // Implementación de búsqueda manualmente (Máx. promedio)
+    Alumno mejor_promedio() {
+        Alumno mejorPromedio = alumnos[0];
+        for (const auto& alumno : alumnos) {
+            if (alumno.getPromedio() > mejorPromedio.getPromedio()) {
+                mejorPromedio = alumno;
+            }
+        }
+        return mejorPromedio;
+    }
+
+    friend ostream& operator<<(ostream& os, const Grupo& grupo) {
+        os << "Grupo:" << endl;
+        for (const auto& alumno : grupo.alumnos) {
+            os << alumno << endl;
+        }
+        return os;
+    }
+};
+
+int main() {
+    Grupo grupo(5);
+    grupo.agregar_alumno("Juan", 20, 8.5);
+    grupo.agregar_alumno("Maria", 21, 7.8);
+    grupo.agregar_alumno("Pedro", 22, 9.0);
+    grupo.agregar_alumno("Ana", 19, 8.2);
+    grupo.agregar_alumno("Luis", 20, 8.7);
+
+    cout << grupo << endl;
+
+    grupo.ordenar_por_promedio();
+
+    cout << "Promedio de los promedios del grupo: " << grupo.promedio_grupo() << endl;
+
+    cout << "Alumno con el mejor promedio:" << endl;
+    cout << grupo.mejor_promedio() << endl;
+
+    return 0;
+}
