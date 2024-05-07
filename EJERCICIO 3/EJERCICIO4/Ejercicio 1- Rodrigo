@@ -1,0 +1,134 @@
+#Alumno.h
+#ifndef ALUMNO_H
+#define ALUMNO_H
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Alumno {
+public:
+    string nombre;
+    int edad;
+    float promedio;
+    // Constructor
+    Alumno(string nombre, int edad, float promedio) {
+        this->nombre = nombre;
+        this->edad = edad;
+        this->promedio = promedio;
+    }
+
+    // Método para convertir el objeto Alumno a una cadena de caracteres
+    string toString() {
+        return "Nombre: " + nombre + ", Edad: " + to_string(edad) + ", Promedio: " + to_string(promedio);
+    }
+
+    // Sobrecarga del operador < para comparar por promedio
+    bool operator<(const Alumno& otro) const {
+        return promedio < otro.promedio;
+    }
+
+    // Método para obtener el promedio
+    float getPromedio() {
+        return promedio;
+    }
+};
+#endif
+----------------------------------------------------------------------------------------------
+#Grupo.h
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include "Alumno.h" // Asumiendo que tienes definida la clase Alumno en un archivo Alumno.h
+
+using namespace std;
+
+class Grupo {
+private:
+    vector<Alumno> alumnos;
+    int cantidad;
+
+public:
+    // Constructor
+    Grupo(int cantidad) {
+        this->cantidad = cantidad;
+        alumnos.reserve(cantidad);
+    }
+
+    // Método para convertir el objeto Grupo a una cadena de caracteres
+    string toString() {
+        string result = "Cantidad de alumnos: " + to_string(alumnos.size()) + "\n";
+        for (size_t i = 0; i < alumnos.size(); ++i) {
+            result += "Alumno " + to_string(i + 1) + ":\n";
+            result += "Nombre: " + alumnos[i].nombre + ", Edad: " + to_string(alumnos[i].edad) + ", Promedio: " + to_string(alumnos[i].promedio) + "\n";
+        }
+        return result;
+    }
+
+    // Método para agregar un nuevo alumno al grupo
+    void agregarAlumno(string nombre, int edad, float promedio) {
+        alumnos.emplace_back(Alumno(nombre, edad, promedio));
+    }
+
+    // Método para ordenar los alumnos por promedio
+    void ordenarPorPromedio() {
+        sort(alumnos.begin(), alumnos.end(), [](const Alumno& a, const Alumno& b) {
+            return a.promedio < b.promedio;
+        });
+    }
+
+    // Método para calcular el promedio del grupo
+    float promedioGrupo() {
+        float sumaPromedios = 0.0f;
+        for (const auto& alumno : alumnos) {
+            sumaPromedios += alumno.promedio;
+        }
+        return alumnos.size() > 0 ? sumaPromedios / alumnos.size() : 0.0f;
+    }
+
+    // Método para encontrar el alumno con el mejor promedio del grupo
+    Alumno mejorPromedio() {
+        if (alumnos.empty()) {
+            throw runtime_error("No hay alumnos en el grupo.");
+        }
+
+        Alumno mejor = alumnos[0];
+        for (const auto& alumno : alumnos) {
+            if (alumno.promedio > mejor.promedio) {
+                mejor = alumno;
+            }
+        }
+        return mejor;
+    }
+};
+------------------------------------------------------------------------------------------------------------
+#include <iostream>
+#include "Alumno.h"
+#include "Grupo.h"
+
+using namespace std;
+
+int main() {
+    // Crear un objeto Grupo con capacidad para 5 objetos Alumno
+    Grupo grupo(5);
+
+    // Agregar 5 objetos Alumno al objeto Grupo
+    grupo.agregarAlumno("Juan", 20, 8.5);
+    grupo.agregarAlumno("Maria", 22, 7.8);
+    grupo.agregarAlumno("Carlos", 21, 9.2);
+    grupo.agregarAlumno("Ana", 19, 8.9);
+    grupo.agregarAlumno("Pedro", 23, 7.5);
+
+    // Mostrar en pantalla el objeto Grupo
+    cout << "Grupo:" << endl;
+    cout << grupo.toString() << endl;
+
+    // Calcular y mostrar en pantalla el promedio de los promedios del objeto Grupo
+    cout << "Promedio de los promedios del grupo: " << grupo.promedioGrupo() << endl;
+
+    // Encontrar y mostrar en pantalla el objeto Alumno con el mejor promedio del objeto Grupo
+    Alumno mejorPromedio = grupo.mejorPromedio();
+    cout << "Alumno con el mejor promedio del grupo: " << mejorPromedio.toString() << endl;
+
+    return 0;
+}
