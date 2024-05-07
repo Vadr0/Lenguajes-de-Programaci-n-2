@@ -1,0 +1,96 @@
+ACTIVIDAD 1 VECTORES DE OBJETOS EN C++
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+class Estudiante {
+private:
+    string nombre;
+    string apellido;
+    float notaPromedio;
+public:
+    Estudiante(string nombre, string apellido, float notaPromedio) {
+        this->nombre = nombre;
+        this->apellido = apellido;
+        this->notaPromedio = notaPromedio;
+    }
+
+    float getNotaPromedio() const {
+        return notaPromedio;
+    }
+
+    void imprimirDatos() const {
+        cout << "Nombre y Apellido: " << nombre << " " << apellido << endl;
+        cout << "Nota promedio: " << notaPromedio << endl;
+    }
+};
+
+bool compararPorNotaPromedio(const Estudiante &a, const Estudiante &b) {
+    return a.getNotaPromedio() > b.getNotaPromedio();
+}
+
+int main() {
+    vector<Estudiante> estudiantes;
+
+    estudiantes.push_back(Estudiante("Orlando", "Montenegro", 12.5));
+    estudiantes.push_back(Estudiante("Piero", "Ponce", 13.8));
+    estudiantes.push_back(Estudiante("Rodrigo", "Delgado", 11.2));
+    estudiantes.push_back(Estudiante("Paul", "Ordoñez", 10.2));
+    estudiantes.push_back(Estudiante("Alvaro", "Montoya", 8.2));
+
+    sort(estudiantes.begin(), estudiantes.end(), compararPorNotaPromedio);
+
+    float notaMinima = 12.0;
+    cout << "Estudiantes con promedio mayor a " << notaMinima << ":" << endl;
+    for (const auto &estudiante : estudiantes) {
+        if (estudiante.getNotaPromedio() > notaMinima) {
+            estudiante.imprimirDatos();
+            cout << endl;
+        }
+    }
+
+    return 0;
+}
+---------------------------------------------------------------------------------------------------------------------
+ACTIVIDAD 2 FUNCIONES Y CLASES AMIGAS EN C++
+#include <iostream>
+
+using namespace std;
+
+class Circulo {
+private:
+    float radio;
+public:
+    Circulo(float r) : radio(r) {}
+    
+    // Creamos la Función amiga para calcular el área del círculo
+    friend float calcular_area_circulo(const Circulo& c);
+
+    float getRadio() const {
+        return radio;
+    }
+
+    float getDiametro() const {
+        return 2 * radio;
+    }
+};
+
+// En esta parte definimos la función amiga
+float calcular_area_circulo(const Circulo& c) {
+    return 3.1416 * c.radio * c.radio; // Utilizamos una aproximación de pi
+}
+
+int main() {
+    // Encontramos el valor de el radio de los ciculos
+    Circulo circulo1(10);
+    Circulo circulo2(3);
+
+    float area_circulo1_funcion = calcular_area_circulo(circulo1);
+    float area_circulo2_funcion = calcular_area_circulo(circulo2);
+
+    cout << "Área del círculo 1: " << area_circulo1_funcion << endl;
+    cout << "Área del círculo 2: " << area_circulo2_funcion << endl;
+
+    return 0;
