@@ -1,7 +1,6 @@
 ACTIVIDAD 1 VECTORES DE OBJETOS EN C++
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#include <string>
 
 using namespace std;
 
@@ -27,32 +26,40 @@ public:
     }
 };
 
-bool compararPorNotaPromedio(const Estudiante &a, const Estudiante &b) {
-    return a.getNotaPromedio() > b.getNotaPromedio();
+void ordenarPorNotaPromedio(Estudiante estudiantes[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (estudiantes[j].getNotaPromedio() < estudiantes[j + 1].getNotaPromedio()) {
+                swap(estudiantes[j], estudiantes[j + 1]);
+            }
+        }
+    }
 }
 
 int main() {
-    vector<Estudiante> estudiantes;
+    const int numEstudiantes = 5;
+    Estudiante estudiantes[numEstudiantes] = {
+        Estudiante("Orlando", "Montenegro", 12.5),
+        Estudiante("Piero", "Ponce", 13.8),
+        Estudiante("Rodrigo", "Delgado", 11.2),
+        Estudiante("Paul", "Ordoñez", 10.2),
+        Estudiante("Alvaro", "Montoya", 8.2)
+    };
 
-    estudiantes.push_back(Estudiante("Orlando", "Montenegro", 12.5));
-    estudiantes.push_back(Estudiante("Piero", "Ponce", 13.8));
-    estudiantes.push_back(Estudiante("Rodrigo", "Delgado", 11.2));
-    estudiantes.push_back(Estudiante("Paul", "Ordoñez", 10.2));
-    estudiantes.push_back(Estudiante("Alvaro", "Montoya", 8.2));
-
-    sort(estudiantes.begin(), estudiantes.end(), compararPorNotaPromedio);
+    ordenarPorNotaPromedio(estudiantes, numEstudiantes);
 
     float notaMinima = 12.0;
     cout << "Estudiantes con promedio mayor a " << notaMinima << ":" << endl;
-    for (const auto &estudiante : estudiantes) {
-        if (estudiante.getNotaPromedio() > notaMinima) {
-            estudiante.imprimirDatos();
+    for (int i = 0; i < numEstudiantes; i++) {
+        if (estudiantes[i].getNotaPromedio() > notaMinima) {
+            estudiantes[i].imprimirDatos();
             cout << endl;
         }
     }
 
     return 0;
 }
+
 ---------------------------------------------------------------------------------------------------------------------
 ACTIVIDAD 2 FUNCIONES Y CLASES AMIGAS EN C++
 #include <iostream>
