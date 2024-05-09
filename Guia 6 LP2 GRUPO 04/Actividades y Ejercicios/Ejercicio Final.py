@@ -1,21 +1,21 @@
 class Alumno:
-    def _init_(self, nombre, edad, promedio):
+    def __init__(self, nombre, edad, promedio):  #constructor
         self.nombre = nombre
         self.edad = edad
         self.promedio = promedio
 
-    def _str_(self):
+    def __str__(self):
         return f"Nombre: {self.nombre}, Edad: {self.edad}, Promedio: {self.promedio}"
 
-    def _lt_(self, otro):
+    def __lt__(self, otro):
         return self.promedio < otro.promedio
 
 class Grupo:
-    def _init_(self, cantidad):
+    def __init__(self, cantidad):
         self.alumnos = [None] * cantidad
         self.cantidad = 0
 
-    def _str_(self):
+    def __str__(self):
         info_alumnos = "\n".join(str(alumno) for alumno in self.alumnos if alumno is not None)
         return f"Grupo de {self.cantidad} alumnos:\n{info_alumnos}"
 
@@ -35,7 +35,9 @@ class Grupo:
         if self.cantidad == 0:
             return 0
         else:
-            total_promedios = sum(alumno.promedio for alumno in self.alumnos if alumno is not None)
+            total_promedios = 0
+            for i in range(self.cantidad):
+                total_promedios+=self.alumnos[i].promedio
             return total_promedios / self.cantidad
 
     def mejor_promedio(self):
