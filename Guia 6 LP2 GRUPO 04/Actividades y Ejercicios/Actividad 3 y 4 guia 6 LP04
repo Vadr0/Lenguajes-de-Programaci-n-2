@@ -65,59 +65,58 @@ int main() {
 
 
 
-  #include <iostream>
+#include <iostream>
 using namespace std;
 
 class Vector2D {
 private:
-    double x;
-    double y;
+    double x;  // Coordenada x del vector
+    double y;  // Coordenada y del vector
 
 public:
     Vector2D(double x, double y) {
-        this->x = x;
-        this->y = y;
+        this->x = x;  // inicializa la coordenada x con el valor proporcionado
+        this->y = y;  // inicializa la coordenada y con el valor proporcionado
     }
 
     double getX() const {
-        return x;
+        return x;  // devuelve valor de la coordenada x
     }
 
     double getY() const {
-        return y;
+        return y;  // devuelve el valor de la coordenada y
     }
 
     void setX(double x) {
-        this->x = x;
+        this->x = x;  // establece un nuevo valor para la coordenada x
     }
 
     void setY(double y) {
-        this->y = y;
+        this->y = y;  // establece un nuevo valor para la coordenada y
     }
 
     Vector2D operator+(const Vector2D& other) const {
-        double sumX = this->x + other.x;
-        double sumY = this->y + other.y;
-        return Vector2D(sumX, sumY);
+        double sumX = this->x + other.x;  // suma las coordenadas x de ambos vectores
+        double sumY = this->y + other.y;  // suma las coordenadas y de ambos vectores
+        return Vector2D(sumX, sumY);  // devuelve un nuevo objeto Vector2D con las coordenadas resultantes
     }
 
     Vector2D operator-(const Vector2D& other) const {
-        double diffX = this->x - other.x;
-        double diffY = this->y - other.y;
-        return Vector2D(diffX, diffY);
+        double diffX = this->x - other.x;  // resta las coordenadas x de ambos vectores
+        double diffY = this->y - other.y;  // resta las coordenadas y de ambos vectores
+        return Vector2D(diffX, diffY);  // devuelve un nuevo objeto Vector2D con las coordenadas resultantes
     }
 };
 
 int main() {
     // Creando vectores
-    Vector2D v1(3.0, 4.0);
-    Vector2D v2(1.0, 2.0);
+    Vector2D v1(3.0, 4.0);  // crea un vector con coordenadas (3.0, 4.0)
+    Vector2D v2(1.0, 2.0);  // crea un vector con coordenadas (1.0, 2.0)
 
-    Vector2D sum = v1 + v2;
+    Vector2D sum = v1 + v2;  // suma los vectores v1 y v2 utilizando el operador sobrecargado '+'
     cout << "Resultado de la suma: (" << sum.getX() << ", " << sum.getY() << ")\n";
 
-    // Restando vectores
-    Vector2D diff = v1 - v2;
+    Vector2D diff = v1 - v2;  // resta los vectores v1 y v2 utilizando el operador sobrecargado '-'
     cout << "Resultado de la resta: (" << diff.getX() << ", " << diff.getY() << ")\n";
 
     return 0;
