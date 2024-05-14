@@ -1,0 +1,202 @@
+class Alumno:
+    def __init__(self, nombre, edad, promedio):
+        self.nombre = nombre
+        self.edad = edad
+        self.promedio = promedio
+
+    def __str__(self):
+        return f"Nombre: {self.nombre}, Edad: {self.edad}, Promedio: {self.promedio}"
+
+    def __lt__(self, otro):
+        return self.promedio < otro.promedio
+
+class Grupo:
+    def __init__(self, cantidad):
+        self.alumnos = [None] * cantidad  #rea- una lista de alumnos con tamaño fijo
+        self.cantidad = 0  #inicializa la cantidad de alumnos en 0
+
+    def __str__(self):
+        info_alumnos = "\n".join(str(alumno) for alumno in self.alumnos if alumno is not None)
+        return f"Grupo de {self.cantidad} alumnos:\n{info_alumnos}"
+
+    def agregar_alumno(self, nombre, edad, promedio):
+        nuevo_alumno = Alumno(nombre, edad, promedio)  # crea un nuevo objeto Alumno
+        self.alumnos[self.cantidad] = nuevo_alumno  # agrega el alumno a la lista
+        self.cantidad += 1  # incrementa la cantidad de alumnos en 1
+
+    def ordenar_por_promedio(self):
+        for i in range(self.cantidad - 1):
+            for j in range(self.cantidad - 1 - i):
+                if self.alumnos[j].promedio > self.alumnos[j + 1].promedio:
+                    # Intercambiar los objetos Alumno si el promedio es mayor
+                    self.alumnos[j], self.alumnos[j + 1] = self.alumnos[j + 1], self.alumnos[j]
+
+    def promedio_grupo(self):
+        if self.cantidad == 0:
+            return 0
+        else:
+            total_promedios = sum(alumno.promedio for alumno in self.alumnos if alumno is not None)
+            return total_promedios / self.cantidad
+
+    def mejor_promedio(self):
+        if self.cantidad == 0:
+            return None
+        else:
+            mejor_alumno = max((alumno for alumno in self.alumnos if alumno is not None), key=lambda x: x.promedio)
+            return mejor_alumno
+
+
+# Programa principal:
+grupo = Grupo(5)  #definimos la cantidad de alumnos
+# se agregan diferentes alumnos con nombre, edad y nota
+grupo.agregar_alumno("Juan", 20, 12.5)
+grupo.agregar_alumno("María", 21, 15)
+grupo.agregar_alumno("Pedro", 19, 9.0)
+grupo.agregar_alumno("Ana", 22, 7)
+grupo.agregar_alumno("Carlos", 20, 19)
+
+print(grupo)
+
+grupo.ordenar_por_promedio()
+print("\nGrupo ordenado por promedio:")
+print(grupo)
+
+print("Promedio del grupo:", grupo.promedio_grupo())
+
+mejor_alumno = grupo.mejor_promedio()
+if mejor_alumno:
+    print("Alumno con el mejor promedio del grupo:", mejor_alumno)
+else:
+    print("No hay alumnos en el grupo.")
+
+
+
+    ************************************ C++ ++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+class Alumno {
+private:
+    string nombre;
+    int edad;
+    double promedio;
+
+public:
+    Alumno(string nombre, int edad, double promedio) {
+        this->nombre = nombre;  // Inicializar el nombre del alumno
+        this->edad = edad;  // Inicializar la edad del alumno
+        this->promedio = promedio;  // Inicializar el promedio del alumno
+    }
+
+    string toString() const {
+        return "Nombre: " + nombre + ", Edad: " + to_string(edad) + ", Promedio: " + to_string(promedio);
+    }
+
+    bool operator<(const Alumno& otro) const {
+        return promedio < otro.promedio;  // Comparar alumnos por su promedio
+    }
+};
+
+class Grupo {
+private:
+    vector<Alumno> alumnos;
+    int cantidad;
+
+public:
+    Grupo(int cantidad) {
+        alumnos = vector<Alumno>(cantidad);  // Crear un vector con capacidad para 'cantidad' alumnos
+        this->cantidad = 0;  // Inicializar la cantidad de alumnos en 0
+    }
+
+    string toString() const {
+        string info_alumnos;
+        for (const Alumno& alumno : alumnos) {
+            if (alumno.toString() != "") {
+                info_alumnos += alumno.toString() + "\n";  // Obtener la representación en string de cada alumno y concatenarlos
+            }
+        }
+        return "Grupo de " + to_string(cantidad) + " alumnos:\n" + info_alumnos;  // Devolver la información del grupo en forma de string
+    }
+
+    void agregarAlumno(string nombre, int edad, double promedio) {
+        Alumno nuevoAlumno(nombre, edad, promedio);  // Crear un nuevo objeto Alumno con los datos proporcionados
+        alumnos[cantidad] = nuevoAlumno;  // Agregar el alumno al vector de alumnos
+        cantidad++;  // Incrementar la cantidad de alumnos en 1
+    }
+
+    void ordenarPorPromedio() {
+        for (int i = 0; i < cantidad - 1; i++) {
+            for (int j = 0; j < cantidad - 1 - i; j++) {
+                if (alumnos[j] < alumnos[j + 1]) {
+                    swap(alumnos[j], alumnos[j + 1]);  // Intercambiar los objetos Alumno si el promedio es mayor
+                }
+            }
+        }
+    }
+
+    double promedioGrupo() const {
+        if (cantidad == 0) {
+            return 0;  // Si no hay alumnos en el grupo, el promedio es 0
+        }
+        else {
+            double totalPromedios = 0;
+            for (const Alumno& alumno : alumnos) {
+                if (alumno.toString() != "") {
+                    totalPromedios += alumno.promedio;  // Sumar los promedios de los alumnos que no sean nulos
+                }
+            }
+            return totalPromedios / cantidad;  // Calcular el promedio del grupo dividiendo la suma total entre la cantidad de alumnos
+        }
+    }
+
+    Alumno mejorPromedio() const {
+        if (cantidad == 0) {
+            return Alumno("", 0, 0);  // Si no hay alumnos en el grupo, devolver un objeto Alumno vacío
+        }
+        else {
+            Alumno mejorAlumno = alumnos[0];  // Inicializar el mejor alumno como el primer alumno del vector
+            for (const Alumno& alumno : alumnos) {
+                if (alumno.toString() != "" && alumno < mejorAlumno) {
+                    mejorAlumno = alumno;  // Actualizar el mejor alumno si se encuentra uno con un promedio más alto
+                }
+            }
+            return mejorAlumno;  // Devolver el mejor alumno encontrado
+        }
+    }
+};
+
+int main() {
+    Grupo grupo(5);  // Crear un grupo con capacidad para 5 alumnos
+
+    grupo.agregarAlumno("Juan", 20, 12.5);  // Agregar alumnos con nombre, edad y promedio
+    grupo.agregarAlumno("María", 21, 15);
+    grupo.agregarAlumno("Pedro", 19, 9.0);
+    grupo.agregarAlumno("Ana", 22, 7);
+    grupo.agregarAlumno("Carlos", 20, 19);
+
+    cout << grupo.toString() << endl;  // Imprimir la información del grupo
+
+    grupo.ordenarPorPromedio();  // Ordenar los alumnos por promedio
+    cout << "Grupo ordenado por promedio:" << endl;
+    cout << grupo.toString() << endl;  // Imprimir la información del grupo ordenado
+
+    cout << "Promedio del grupo: " << grupo.promedioGrupo() << endl;  // Calcular y mostrar el promedio del grupo
+
+    Alumno mejorAlumno = grupo.mejorPromedio();  // Obtener el alumno con el mejor promedio del grupo
+    if (mejorAlumno.toString() != "") {
+        cout << "Alumno con el mejor promedio del grupo: " << mejorAlumno.toString() << endl;  // Imprimir la información del mejor alumno
+    }
+    else {
+        cout << "No hay alumnos en el grupo." << endl;  // Si no hay alumnos en el grupo, mostrar un mensaje indicándolo
+    }
+
+    return 0;
+}
+
