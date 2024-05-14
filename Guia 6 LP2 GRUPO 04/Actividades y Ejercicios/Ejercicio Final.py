@@ -1,5 +1,5 @@
 class Alumno:
-    def __init__(self, nombre, edad, promedio):  #constructor
+    def __init__(self, nombre, edad, promedio):
         self.nombre = nombre
         self.edad = edad
         self.promedio = promedio
@@ -12,17 +12,17 @@ class Alumno:
 
 class Grupo:
     def __init__(self, cantidad):
-        self.alumnos = [None] * cantidad
-        self.cantidad = 0
+        self.alumnos = [None] * cantidad  # Crear una lista de alumnos con tamaño fijo
+        self.cantidad = 0  # Inicializar la cantidad de alumnos en 0
 
     def __str__(self):
         info_alumnos = "\n".join(str(alumno) for alumno in self.alumnos if alumno is not None)
         return f"Grupo de {self.cantidad} alumnos:\n{info_alumnos}"
 
     def agregar_alumno(self, nombre, edad, promedio):
-        nuevo_alumno = Alumno(nombre, edad, promedio)
-        self.alumnos[self.cantidad] = nuevo_alumno
-        self.cantidad += 1
+        nuevo_alumno = Alumno(nombre, edad, promedio)  # Crear un nuevo objeto Alumno
+        self.alumnos[self.cantidad] = nuevo_alumno  # Agregar el alumno a la lista
+        self.cantidad += 1  # Incrementar la cantidad de alumnos en 1
 
     def ordenar_por_promedio(self):
         for i in range(self.cantidad - 1):
@@ -35,25 +35,20 @@ class Grupo:
         if self.cantidad == 0:
             return 0
         else:
-            total_promedios = 0
-            for i in range(self.cantidad):
-                total_promedios+=self.alumnos[i].promedio
+            total_promedios = sum(alumno.promedio for alumno in self.alumnos if alumno is not None)
             return total_promedios / self.cantidad
 
     def mejor_promedio(self):
         if self.cantidad == 0:
             return None
         else:
-            mejor_alumno = self.alumnos[0]  # Suponemos que el primer alumno tiene el mejor promedio inicialmente
-            for alumno in self.alumnos[1:]:
-                if alumno.promedio > mejor_alumno.promedio:
-                    mejor_alumno = alumno
+            mejor_alumno = max((alumno for alumno in self.alumnos if alumno is not None), key=lambda x: x.promedio)
             return mejor_alumno
 
 
 # Programa principal:
-grupo = Grupo(5)  #aqui definimos la cantidad de alumnos 
-##se agregan diferentes alumnos con nombre,edad y nota 
+grupo = Grupo(5)  # aquí definimos la cantidad de alumnos
+# se agregan diferentes alumnos con nombre, edad y nota
 grupo.agregar_alumno("Juan", 20, 12.5)
 grupo.agregar_alumno("María", 21, 15)
 grupo.agregar_alumno("Pedro", 19, 9.0)
