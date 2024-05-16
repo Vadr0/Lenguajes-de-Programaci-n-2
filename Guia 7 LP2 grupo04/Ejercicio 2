@@ -1,1 +1,127 @@
+Codigo en c++
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Persona {
+protected:
+    string nombre;
+    int edad;
+    float salario;
+    string email; 
+public:
+    Persona(string _nombre, int _edad, float _salario, string _email)
+        : nombre(_nombre), edad(_edad), salario(_salario), email(_email) {}
+
+    void mostrarInfo() const {
+        cout << "Nombre y Apellido: " << nombre << endl;
+        cout << "Edad: " << edad << endl;
+        cout << "Salario: " << salario << endl;
+        cout << "Email: " << email << endl;
+    }
+};
+
+class Empleado : public Persona {
+public:
+    Empleado(string _nombre, int _edad, float _salario, string _email)
+        : Persona(_nombre, _edad, _salario, _email) {}
+};
+
+class Cliente : public Persona {
+public:
+    Cliente(string _nombre, int _edad, float _salario, string _email)
+        : Persona(_nombre, _edad, _salario, _email) {}
+};
+
+int main() {
+    Empleado empleado("Pepito", 30, 3000, "pepito@example.com");
+    Cliente cliente("Ana", 25, 0, "ana@example.com");
+
+    cout << "Información del Empleado:" << endl;
+    empleado.mostrarInfo();
+    cout << endl;
+    cout << "Información del Cliente:" << endl;
+    cliente.mostrarInfo();
+
+    return 0;
+}
+-------------------------------------------------------------------------------------
+Codigo en Python
+class Persona:
+    def __init__(self, nombre, edad, salario, email):
+        self.nombre = nombre
+        self.edad = edad
+        self.salario = salario
+        self.email = email
+
+    def mostrar_info(self):
+        print("Nombre y Apellido:", self.nombre)
+        print("Edad:", self.edad)
+        print("Salario:", self.salario)
+        print("Email:", self.email)
+
+class Empleado(Persona):
+    def __init__(self, nombre, edad, salario, email):
+        super().__init__(nombre, edad, salario, email)
+
+class Cliente(Persona):
+    def __init__(self, nombre, edad, salario, email):
+        super().__init__(nombre, edad, salario, email)
+
+if __name__ == "__main__":
+    empleado = Empleado("Pepito", 30, 3000, "pepito@example.com")
+    cliente = Cliente("Ana", 25, 0, "ana@example.com")
+
+    print("Información del Empleado:")
+    empleado.mostrar_info()
+    print()
+    print("Información del Cliente:")
+    cliente.mostrar_info()
+---------------------------------------------------------------------------------------------
+Codigo en Java
+public class Persona {
+    protected String nombre;
+    protected int edad;
+    protected float salario;
+    protected String email;
+
+    public Persona(String nombre, int edad, float salario, String email) {
+        this.nombre = nombre;
+        this.edad = edad;
+        this.salario = salario;
+        this.email = email;
+    }
+
+    public void mostrarInfo() {
+        System.out.println("Nombre y Apellido: " + nombre);
+        System.out.println("Edad: " + edad);
+        System.out.println("Salario: " + salario);
+        System.out.println("Email: " + email);
+    }
+}
+
+public class Empleado extends Persona {
+    public Empleado(String nombre, int edad, float salario, String email) {
+        super(nombre, edad, salario, email);
+    }
+}
+
+public class Cliente extends Persona {
+    public Cliente(String nombre, int edad, float salario, String email) {
+        super(nombre, edad, salario, email);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Empleado empleado = new Empleado("Pepito", 30, 3000, "pepito@example.com");
+        Cliente cliente = new Cliente("Ana", 25, 0, "ana@example.com");
+
+        System.out.println("Información del Empleado:");
+        empleado.mostrarInfo();
+        System.out.println();
+        System.out.println("Información del Cliente:");
+        cliente.mostrarInfo();
+    }
+}
 
