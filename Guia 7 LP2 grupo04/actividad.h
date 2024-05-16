@@ -168,38 +168,6 @@ if __name__ == "__main__":
 
 
 
-
-
-    #include <iostream>
-#include <string>
-using namespace std;
-
-class Cuentas{
-public:
-    string cliente;
-    float saldo;
-    virtual void cargarSaldo()=0;
-};
-
-class Cta_deb: public Cuentas
-{
-    public:
-    virtual void cargarSaldo() override
-    {
-        this -> saldo=0;
-    }
-};
-class Cta_cred: public Cuentas{
-public:
-    virtual void cargarSaldo() override
-    {
-        this-> saldo=5000;    }
-};
-int main (){
-    Cta_deb cta1;
-    cta1.cargarSaldo();
-    cout<<"la cuenta tiene saldo: "<<cta1.saldo<<endl;
-
     Cta_cred cta2;
     cta2.cargarSaldo();
     cout<<"la cuenta tiene saldo: "<<cta2.saldo<<endl;
