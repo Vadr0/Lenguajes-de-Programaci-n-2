@@ -109,7 +109,7 @@ public:
 
 int main() {
     // Crear un objeto de la clase ClienteSeguro utilizando herencia protegida
-    ClienteSeguroProtegida clienteProtegido("Juan", "Perez", "Calle 123", "1234");
+    ClienteSeguroProtegida clienteProtegido("Juan", "Perez", "Parra 1245", "679416522");
     // Mostrar la información del cliente antes de encriptar
     cout << "Información del cliente antes de encriptar:" << endl;
     clienteProtegido.mostrarInformacionCliente();
