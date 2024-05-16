@@ -1,0 +1,76 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Movil {
+protected:
+    string marca;
+    string modelo;
+    string sistema_operativo;
+
+public:
+    Movil(const string& marca, const string& modelo, const string& sistema_operativo)
+        : marca(marca), modelo(modelo), sistema_operativo(sistema_operativo) {
+    }
+
+    virtual ~Movil() {
+    }
+};
+
+class Telefono : public Movil {
+public:
+    Telefono(const string& marca, const string& modelo, const string& sistema_operativo)
+        : Movil(marca, modelo, sistema_operativo) {
+
+    }
+
+    ~Telefono() {
+    }
+};
+
+class Tablet : public Movil {
+public:
+    Tablet(const string& marca, const string& modelo, const string& sistema_operativo)
+        : Movil(marca, modelo, sistema_operativo) {
+        
+    }
+
+    ~Tablet() {
+    }
+};
+
+int main() {
+    Telefono telefono("Samsung", "Galaxy S20", "Android");
+    Tablet tablet("Apple", "iPad Pro", "iPadOS");
+
+    return 0;
+}
+
+......................................................................................................................................
+
+class Movil:
+    def __init__(self, marca, modelo, sistema_operativo):
+        self.marca = marca
+        self.modelo = modelo
+        self.sistema_operativo = sistema_operativo
+
+    def __del__(self):
+        pass
+
+class Telefono(Movil):
+    def __init__(self, marca, modelo, sistema_operativo):
+        super().__init__(marca, modelo, sistema_operativo)
+
+    def __del__(self):
+        pass
+
+class Tablet(Movil):
+    def __init__(self, marca, modelo, sistema_operativo):
+        super().__init__(marca, modelo, sistema_operativo)
+
+    def __del__(self):
+        pass
+
+if __name__ == "__main__":
+    telefono = Telefono("Samsung", "Galaxy S20", "Android")
+    tablet = Tablet("Apple", "iPad Pro", "iPadOS")
