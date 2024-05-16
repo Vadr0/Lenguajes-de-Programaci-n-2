@@ -90,9 +90,9 @@ private:
 
 public:
     Alumno(string nombre, int edad, double promedio) {
-        this->nombre = nombre;  // Inicializar el nombre del alumno
-        this->edad = edad;  // Inicializar la edad del alumno
-        this->promedio = promedio;  // Inicializar el promedio del alumno
+        this->nombre = nombre;
+        this->edad = edad;
+        this->promedio = promedio;
     }
 
     string toString() const {
@@ -100,7 +100,12 @@ public:
     }
 
     bool operator<(const Alumno& otro) const {
-        return promedio < otro.promedio;  // Comparar alumnos por su promedio
+        return promedio < otro.promedio;
+    }
+
+    // Método getter para el atributo promedio
+    double getPromedio() const {
+        return promedio;
     }
 };
 
@@ -111,31 +116,31 @@ private:
 
 public:
     Grupo(int cantidad) {
-        alumnos = vector<Alumno>(cantidad);  // Crear un vector con capacidad para 'cantidad' alumnos
-        this->cantidad = 0;  // Inicializar la cantidad de alumnos en 0
+        alumnos = vector<Alumno>(cantidad);
+        this->cantidad = 0;
     }
 
     string toString() const {
         string info_alumnos;
         for (const Alumno& alumno : alumnos) {
             if (alumno.toString() != "") {
-                info_alumnos += alumno.toString() + "\n";  // Obtener la representación en string de cada alumno y concatenarlos
+                info_alumnos += alumno.toString() + "\n";
             }
         }
-        return "Grupo de " + to_string(cantidad) + " alumnos:\n" + info_alumnos;  // Devolver la información del grupo en forma de string
+        return "Grupo de " + to_string(cantidad) + " alumnos:\n" + info_alumnos;
     }
 
     void agregarAlumno(string nombre, int edad, double promedio) {
-        Alumno nuevoAlumno(nombre, edad, promedio);  // Crear un nuevo objeto Alumno con los datos proporcionados
-        alumnos[cantidad] = nuevoAlumno;  // Agregar el alumno al vector de alumnos
-        cantidad++;  // Incrementar la cantidad de alumnos en 1
+        Alumno nuevoAlumno(nombre, edad, promedio);
+        alumnos[cantidad] = nuevoAlumno;
+        cantidad++;
     }
 
     void ordenarPorPromedio() {
         for (int i = 0; i < cantidad - 1; i++) {
             for (int j = 0; j < cantidad - 1 - i; j++) {
                 if (alumnos[j] < alumnos[j + 1]) {
-                    swap(alumnos[j], alumnos[j + 1]);  // Intercambiar los objetos Alumno si el promedio es mayor
+                    swap(alumnos[j], alumnos[j + 1]);
                 }
             }
         }
@@ -143,60 +148,59 @@ public:
 
     double promedioGrupo() const {
         if (cantidad == 0) {
-            return 0;  // Si no hay alumnos en el grupo, el promedio es 0
+            return 0;
         }
         else {
             double totalPromedios = 0;
             for (const Alumno& alumno : alumnos) {
                 if (alumno.toString() != "") {
-                    totalPromedios += alumno.promedio;  // Sumar los promedios de los alumnos que no sean nulos
+                    totalPromedios += alumno.getPromedio();  // Usar el método getter para obtener el promedio
                 }
             }
-            return totalPromedios / cantidad;  // Calcular el promedio del grupo dividiendo la suma total entre la cantidad de alumnos
+            return totalPromedios / cantidad;
         }
     }
 
     Alumno mejorPromedio() const {
         if (cantidad == 0) {
-            return Alumno("", 0, 0);  // Si no hay alumnos en el grupo, devolver un objeto Alumno vacío
+            return Alumno("", 0, 0);
         }
         else {
-            Alumno mejorAlumno = alumnos[0];  // Inicializar el mejor alumno como el primer alumno del vector
+            Alumno mejorAlumno = alumnos[0];
             for (const Alumno& alumno : alumnos) {
                 if (alumno.toString() != "" && alumno < mejorAlumno) {
-                    mejorAlumno = alumno;  // Actualizar el mejor alumno si se encuentra uno con un promedio más alto
+                    mejorAlumno = alumno;
                 }
             }
-            return mejorAlumno;  // Devolver el mejor alumno encontrado
+            return mejorAlumno;
         }
     }
 };
 
 int main() {
-    Grupo grupo(5);  // Crear un grupo con capacidad para 5 alumnos
+    Grupo grupo(5);
 
-    grupo.agregarAlumno("Juan", 20, 12.5);  // Agregar alumnos con nombre, edad y promedio
+    grupo.agregarAlumno("Juan", 20, 12.5);
     grupo.agregarAlumno("María", 21, 15);
     grupo.agregarAlumno("Pedro", 19, 9.0);
     grupo.agregarAlumno("Ana", 22, 7);
     grupo.agregarAlumno("Carlos", 20, 19);
 
-    cout << grupo.toString() << endl;  // Imprimir la información del grupo
+    cout << grupo.toString() << endl;
 
-    grupo.ordenarPorPromedio();  // Ordenar los alumnos por promedio
+    grupo.ordenarPorPromedio();
     cout << "Grupo ordenado por promedio:" << endl;
-    cout << grupo.toString() << endl;  // Imprimir la información del grupo ordenado
+    cout << grupo.toString() << endl;
 
-    cout << "Promedio del grupo: " << grupo.promedioGrupo() << endl;  // Calcular y mostrar el promedio del grupo
+    cout << "Promedio del grupo: " << grupo.promedioGrupo() << endl;
 
-    Alumno mejorAlumno = grupo.mejorPromedio();  // Obtener el alumno con el mejor promedio del grupo
+    Alumno mejorAlumno = grupo.mejorPromedio();
     if (mejorAlumno.toString() != "") {
-        cout << "Alumno con el mejor promedio del grupo: " << mejorAlumno.toString() << endl;  // Imprimir la información del mejor alumno
+        cout << "Alumno con el mejor promedio del grupo: " << mejorAlumno.toString() << endl;
     }
     else {
-        cout << "No hay alumnos en el grupo." << endl;  // Si no hay alumnos en el grupo, mostrar un mensaje indicándolo
+        cout << "No hay alumnos en el grupo." << endl;
     }
 
     return 0;
 }
-
