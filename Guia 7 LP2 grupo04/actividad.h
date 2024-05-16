@@ -12,24 +12,28 @@ protected:
     // Método protegido para encriptar la información
     void encriptarInformacion() {
         // Encriptar el nombre y el apellido
-        for (char& c : nombre) {
+        for (size_t i = 0; i < nombre.size(); ++i) {
+            char& c = nombre[i];
             if (c >= 'a' && c <= 'z') {
                 c = ((c - 'a' + 1) % 26) + 'a';
             }
         }
-        for (char& c : apellido) {
+        for (size_t i = 0; i < apellido.size(); ++i) {
+            char& c = apellido[i];
             if (c >= 'a' && c <= 'z') {
                 c = ((c - 'a' + 1) % 26) + 'a';
             }
         }
         // Encriptar la dirección
-        for (char& c : direccion) {
+        for (size_t i = 0; i < direccion.size(); ++i) {
+            char& c = direccion[i];
             if (c >= 'a' && c <= 'z') {
                 c = ((c - 'a' + 1) % 26) + 'a';
             }
         }
         // Encriptar el número de tarjeta
-        for (char& c : numeroTarjeta) {
+        for (size_t i = 0; i < numeroTarjeta.size(); ++i) {
+            char& c = numeroTarjeta[i];
             if (c >= '0' && c <= '9') {
                 c = ((c - '0' + 1) % 10) + '0';
             }
@@ -73,24 +77,28 @@ public:
     // Método para desencriptar la información del cliente
     void desencriptarInformacionCliente() {
         // Desencriptar el nombre y el apellido
-        for (char& c : nombre) {
+        for (size_t i = 0; i < nombre.size(); ++i) {
+            char& c = nombre[i];
             if (c >= 'a' && c <= 'z') {
                 c = ((c - 'a' - 1 + 26) % 26) + 'a';
             }
         }
-        for (char& c : apellido) {
+        for (size_t i = 0; i < apellido.size(); ++i) {
+            char& c = apellido[i];
             if (c >= 'a' && c <= 'z') {
                 c = ((c - 'a' - 1 + 26) % 26) + 'a';
             }
         }
         // Desencriptar la dirección
-        for (char& c : direccion) {
+        for (size_t i = 0; i < direccion.size(); ++i) {
+            char& c = direccion[i];
             if (c >= 'a' && c <= 'z') {
                 c = ((c - 'a' - 1 + 26) % 26) + 'a';
             }
         }
         // Desencriptar el número de tarjeta
-        for (char& c : numeroTarjeta) {
+        for (size_t i = 0; i < numeroTarjeta.size(); ++i) {
+            char& c = numeroTarjeta[i];
             if (c >= '0' && c <= '9') {
                 c = ((c - '0' - 1 + 10) % 10) + '0';
             }
