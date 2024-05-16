@@ -12,7 +12,7 @@ protected:
     // Método protegido para encriptar la información
     void encriptarInformacion() {
         // Encriptar el nombre y el apellido
-        for (size_t i = 0; i < nombre.size(); ++i) {
+        for (size_t i = 0; i < nombre.size(); ++i) {        //el size es un metodo de la libreria string 
             char& c = nombre[i];
             if (c >= 'a' && c <= 'z') {
                 c = ((c - 'a' + 1) % 26) + 'a';
