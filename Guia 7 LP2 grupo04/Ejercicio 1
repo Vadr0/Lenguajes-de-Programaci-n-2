@@ -1,0 +1,182 @@
+Programa en c++
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Vehiculo {
+protected:
+    string marca;
+    string modelo;
+    int anioFabricacion;
+    double precio;
+
+public:
+    Vehiculo(const string& marca, const string& modelo, int anioFabricacion, double precio)
+        : marca(marca), modelo(modelo), anioFabricacion(anioFabricacion), precio(precio) {}
+
+    virtual ~Vehiculo() {}
+
+    void mostrarDetalles() const {
+        cout << "Marca: " << marca << ", Modelo: " << modelo << ", Año de Fabricación: " << anioFabricacion << ", Precio: $" << precio << endl;
+    }
+};
+
+class Automovil : public Vehiculo {
+private:
+    int numPuertas;
+    string tipoCombustible;
+
+public:
+    Automovil(const string& marca, const string& modelo, int anioFabricacion, double precio, int numPuertas, const string& tipoCombustible)
+        : Vehiculo(marca, modelo, anioFabricacion, precio), numPuertas(numPuertas), tipoCombustible(tipoCombustible) {}
+
+    ~Automovil() {}
+
+    void mostrarDetalles() const {
+        cout << "Automóvil: ";
+        Vehiculo::mostrarDetalles();
+        cout << "Número de puertas: " << numPuertas << ", Tipo de combustible: " << tipoCombustible << endl;
+    }
+};
+
+class Motocicleta : public Vehiculo {
+private:
+    int cilindrada;
+
+public:
+    Motocicleta(const string& marca, const string& modelo, int anioFabricacion, double precio, int cilindrada)
+        : Vehiculo(marca, modelo, anioFabricacion, precio), cilindrada(cilindrada) {}
+
+    ~Motocicleta() {}
+
+    void mostrarDetalles() const {
+        cout << "Motocicleta: ";
+        Vehiculo::mostrarDetalles();
+        cout << "Cilindrada: " << cilindrada << " cc" << endl;
+    }
+};
+
+int main() {
+    Automovil miAuto("Toyota", "Corolla", 2022, 25000.0, 4, "Gasolina");
+    miAuto.mostrarDetalles();
+
+    Motocicleta miMoto("Honda", "CBR600RR", 2021, 12000.0, 600);
+    miMoto.mostrarDetalles();
+
+    return 0;
+}
+------------------------------------------------------------------------------------------------
+Programa en Python
+class Vehiculo:
+    def __init__(self, marca, modelo, anio_fabricacion, precio):
+        self.marca = marca
+        self.modelo = modelo
+        self.anio_fabricacion = anio_fabricacion
+        self.precio = precio
+
+    def mostrar_detalles(self):
+        print("Marca:", self.marca)
+        print("Modelo:", self.modelo)
+        print("Año de Fabricación:", self.anio_fabricacion)
+        print("Precio: $", self.precio)
+
+
+class Automovil(Vehiculo):
+    def __init__(self, marca, modelo, anio_fabricacion, precio, num_puertas, tipo_combustible):
+        super().__init__(marca, modelo, anio_fabricacion, precio)
+        self.num_puertas = num_puertas
+        self.tipo_combustible = tipo_combustible
+
+    def mostrar_detalles(self):
+        print("Automóvil:")
+        super().mostrar_detalles()
+        print("Número de Puertas:", self.num_puertas)
+        print("Tipo de Combustible:", self.tipo_combustible)
+
+
+class Motocicleta(Vehiculo):
+    def __init__(self, marca, modelo, anio_fabricacion, precio, cilindrada):
+        super().__init__(marca, modelo, anio_fabricacion, precio)
+        self.cilindrada = cilindrada
+
+    def mostrar_detalles(self):
+        print("Motocicleta:")
+        super().mostrar_detalles()
+        print("Cilindrada:", self.cilindrada, "cc")
+
+
+# Crear un automóvil
+mi_auto = Automovil("Toyota", "Corolla", 2022, 25000.0, 4, "Gasolina")
+mi_auto.mostrar_detalles()
+
+# Crear una motocicleta
+mi_moto = Motocicleta("Honda", "CBR600RR", 2021, 12000.0, 600)
+mi_moto.mostrar_detalles()
+-----------------------------------------------------------------------------------------------------------
+Programa en Java
+class Vehiculo {
+    protected String marca;
+    protected String modelo;
+    protected int anioFabricacion;
+    protected double precio;
+
+    public Vehiculo(String marca, String modelo, int anioFabricacion, double precio) {
+        this.marca = marca;
+        this.modelo = modelo;
+        this.anioFabricacion = anioFabricacion;
+        this.precio = precio;
+    }
+
+    public void mostrarDetalles() {
+        System.out.println("Marca: " + marca);
+        System.out.println("Modelo: " + modelo);
+        System.out.println("Año de Fabricación: " + anioFabricacion);
+        System.out.println("Precio: $" + precio);
+    }
+}
+
+class Automovil extends Vehiculo {
+    private int numPuertas;
+    private String tipoCombustible;
+
+    public Automovil(String marca, String modelo, int anioFabricacion, double precio, int numPuertas, String tipoCombustible) {
+        super(marca, modelo, anioFabricacion, precio);
+        this.numPuertas = numPuertas;
+        this.tipoCombustible = tipoCombustible;
+    }
+
+    public void mostrarDetalles() {
+        System.out.println("Automóvil:");
+        super.mostrarDetalles();
+        System.out.println("Número de Puertas: " + numPuertas);
+        System.out.println("Tipo de Combustible: " + tipoCombustible);
+    }
+}
+
+class Motocicleta extends Vehiculo {
+    private int cilindrada;
+
+    public Motocicleta(String marca, String modelo, int anioFabricacion, double precio, int cilindrada) {
+        super(marca, modelo, anioFabricacion, precio);
+        this.cilindrada = cilindrada;
+    }
+
+    public void mostrarDetalles() {
+        System.out.println("Motocicleta:");
+        super.mostrarDetalles();
+        System.out.println("Cilindrada: " + cilindrada + " cc");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Crear un automóvil
+        Automovil miAuto = new Automovil("Toyota", "Corolla", 2022, 25000.0, 4, "Gasolina");
+        miAuto.mostrarDetalles();
+
+        // Crear una motocicleta
+        Motocicleta miMoto = new Motocicleta("Honda", "CBR600RR", 2021, 12000.0, 600);
+        miMoto.mostrarDetalles();
+    }
+}
