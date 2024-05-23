@@ -2,6 +2,9 @@
 #include <string>
 using namespace std;
 
+// Declaración anticipada del prototipo de la función burbuja
+void burbuja(string& str);
+
 // Clase base Cliente
 class Cliente {
 protected:
@@ -9,39 +12,13 @@ protected:
     string apellido;
     string direccion;
     string numeroTarjeta;
-    void encriptarInformacion() {
-        // Encriptar el nombre y el apellido
-        for (size_t i = 0; i < nombre.size(); ++i) {        //el size es un metodo de la libreria string 
-            char& c = nombre[i];
-            if (c >= 'a' && c <= 'z') {
-                c = ((c - 'a' + 1) % 26) + 'a';
-            }
-        }
-        for (size_t i = 0; i < apellido.size(); ++i) {
-            char& c = apellido[i];
-            if (c >= 'a' && c <= 'z') {
-                c = ((c - 'a' + 1) % 26) + 'a';
-            }
-        }
-        for (size_t i = 0; i < direccion.size(); ++i) {  // Encriptar la dirección
-            char& c = direccion[i];
-            if (c >= 'a' && c <= 'z') {
-                c = ((c - 'a' + 1) % 26) + 'a';
-            }
-        }
-        for (size_t i = 0; i < numeroTarjeta.size(); ++i) { // Encriptar el número de tarjeta
-            char& c = numeroTarjeta[i];
-            if (c >= '0' && c <= '9') {
-                c = ((c - '0' + 1) % 10) + '0';
-            }
-        }
-        cout << "Información encriptada correctamente." << endl;
-    }
 public:
     Cliente(string _nombre, string _apellido, string _direccion, string _numeroTarjeta)
         : nombre(_nombre), apellido(_apellido), direccion(_direccion), numeroTarjeta(_numeroTarjeta) {}
+
     virtual ~Cliente() {}
-    void mostrarInformacion() {          //mostrar
+
+    void mostrarInformacion() {
         cout << "Nombre: " << nombre << endl;
         cout << "Apellido: " << apellido << endl;
         cout << "Dirección: " << direccion << endl;
@@ -49,10 +26,17 @@ public:
     }
 };
 
-class ClienteSeguroProtegida : protected Cliente {       //se hereda o se deriba  
+// Clase derivada con herencia protegida
+class ClienteSeguroProtegida : protected Cliente {
+private:
+    string originalNombre;
+    string originalApellido;
+    string originalDireccion;
+    string originalNumeroTarjeta;
 public:
     ClienteSeguroProtegida(string _nombre, string _apellido, string _direccion, string _numeroTarjeta)
-        : Cliente(_nombre, _apellido, _direccion, _numeroTarjeta) {}
+        : Cliente(_nombre, _apellido, _direccion, _numeroTarjeta), originalNombre(_nombre), originalApellido(_apellido), originalDireccion(_direccion), originalNumeroTarjeta(_numeroTarjeta) {}
+
     void mostrarInformacionCliente() {
         cout << "Información del cliente:" << endl;
         cout << "Nombre: " << nombre << endl;
@@ -60,51 +44,55 @@ public:
         cout << "Dirección: " << direccion << endl;
         cout << "Número de tarjeta: " << numeroTarjeta << endl;
     }
-    void encriptarInformacionCliente() {     //metodo para encriptar la informacion de la clase base
-        encriptarInformacion();
+
+    void encriptarInformacionCliente() {
+        burbuja(nombre);
+        burbuja(apellido);
+        burbuja(direccion);
+        burbuja(numeroTarjeta);
+        cout << "Información encriptada correctamente." << endl;
     }
-    void desencriptarInformacionCliente() {     //metodo para desencriptar
-        for (size_t i = 0; i < nombre.size(); ++i) {
-            char& c = nombre[i];
-            if (c >= 'a' && c <= 'z') {
-                c = ((c - 'a' - 1 + 26) % 26) + 'a';
-            }
-        }
-        for (size_t i = 0; i < apellido.size(); ++i) {
-            char& c = apellido[i];
-            if (c >= 'a' && c <= 'z') {
-                c = ((c - 'a' - 1 + 26) % 26) + 'a';
-            }
-        }
-        for (size_t i = 0; i < direccion.size(); ++i) {
-            char& c = direccion[i];
-            if (c >= 'a' && c <= 'z') {
-                c = ((c - 'a' - 1 + 26) % 26) + 'a';
-            }
-        }
-        for (size_t i = 0; i < numeroTarjeta.size(); ++i) {
-            char& c = numeroTarjeta[i];
-            if (c >= '0' && c <= '9') {
-                c = ((c - '0' - 1 + 10) % 10) + '0';
-            }
-        }
+
+    void desencriptarInformacionCliente() {
+        nombre = originalNombre;
+        apellido = originalApellido;
+        direccion = originalDireccion;
+        numeroTarjeta = originalNumeroTarjeta;
         cout << "Información desencriptada correctamente." << endl;
     }
 };
 
-int main() {
-    ClienteSeguroProtegida clienteProtegido("Juan", "Perez", "Parra 1245", "679416522");
-    cout << "Información del cliente antes de encriptar:" << endl;
-    clienteProtegido.mostrarInformacionCliente();
-    clienteProtegido.encriptarInformacionCliente();
-    cout << "\nInformación del cliente después de encriptar:" << endl;
-    clienteProtegido.mostrarInformacionCliente();
-    clienteProtegido.desencriptarInformacionCliente();
-    cout << "\nInformación del cliente después de desencriptar:" << endl;
-    clienteProtegido.mostrarInformacionCliente();
-    return 0;
+// Función burbuja para ordenar caracteres en una cadena
+void burbuja(string& str) {
+    int n = str.length();
+    for (int i = 0; i < n - 1; ++i) {
+        for (int j = 0; j < n - i - 1; ++j) {
+            if (str[j] > str[j + 1]) {
+                char temp = str[j];
+                str[j] = str[j + 1];
+                str[j + 1] = temp;
+            }
+        }
+    }
 }
 
+int main() {
+    ClienteSeguroProtegida clienteProtegido("Juan Lopez", "Perez del Campo", "Urb:Callao Calle 123", "76251734");
+    
+    cout << "Información del cliente antes de encriptar:" << endl;
+    clienteProtegido.mostrarInformacionCliente();
+    
+    clienteProtegido.encriptarInformacionCliente();
+    
+    cout << "\nInformación del cliente después de encriptar:" << endl;
+    clienteProtegido.mostrarInformacionCliente();
+    
+    clienteProtegido.desencriptarInformacionCliente();
+    
+    cout << "\nInformación del cliente después de desencriptar:" << endl;
+    clienteProtegido.mostrarInformacionCliente();
+    
+    return 0;
 ____________________________________________________________________________________________________________________________
 
 class Cliente:
