@@ -93,6 +93,7 @@ int main() {
     clienteProtegido.mostrarInformacionCliente();
     
     return 0;
+}
 ____________________________________________________________________________________________________________________________
 
 class Cliente:
@@ -102,61 +103,65 @@ class Cliente:
         self.direccion = direccion
         self.numero_tarjeta = numero_tarjeta
 
-    def encriptar_informacion(self):
-        # Encriptar el nombre y el apellido
-        self.nombre = ''.join(chr(((ord(c) - ord('a') + 1) % 26) + ord('a')) if 'a' <= c <= 'z' else c for c in self.nombre)
-        self.apellido = ''.join(chr(((ord(c) - ord('a') + 1) % 26) + ord('a')) if 'a' <= c <= 'z' else c for c in self.apellido)
-        # Encriptar la dirección
-        self.direccion = ''.join(chr(((ord(c) - ord('a') + 1) % 26) + ord('a')) if 'a' <= c <= 'z' else c for c in self.direccion)
-        # Encriptar el número de tarjeta
-        self.numero_tarjeta = ''.join(chr(((ord(c) - ord('0') + 1) % 10) + ord('0')) if '0' <= c <= '9' else c for c in self.numero_tarjeta)
-        print("Información encriptada correctamente.")
-
-    def desencriptar_informacion(self):
-        # Desencriptar el nombre y el apellido
-        self.nombre = ''.join(chr(((ord(c) - ord('a') - 1 + 26) % 26) + ord('a')) if 'a' <= c <= 'z' else c for c in self.nombre)
-        self.apellido = ''.join(chr(((ord(c) - ord('a') - 1 + 26) % 26) + ord('a')) if 'a' <= c <= 'z' else c for c in self.apellido)
-        # Desencriptar la dirección
-        self.direccion = ''.join(chr(((ord(c) - ord('a') - 1 + 26) % 26) + ord('a')) if 'a' <= c <= 'z' else c for c in self.direccion)
-        # Desencriptar el número de tarjeta
-        self.numero_tarjeta = ''.join(chr(((ord(c) - ord('0') - 1 + 10) % 10) + ord('0')) if '0' <= c <= '9' else c for c in self.numero_tarjeta)
-        print("Información desencriptada correctamente.")
-
     def mostrar_informacion(self):
-        print("Nombre:", self.nombre)
-        print("Apellido:", self.apellido)
-        print("Dirección:", self.direccion)
-        print("Número de tarjeta:", self.numero_tarjeta)
+        print(f"Nombre: {self.nombre}")
+        print(f"Apellido: {self.apellido}")
+        print(f"Dirección: {self.direccion}")
+        print(f"Número de tarjeta: {self.numero_tarjeta}")
 
 
 class ClienteSeguroProtegida(Cliente):
+    def __init__(self, nombre, apellido, direccion, numero_tarjeta):
+        super().__init__(nombre, apellido, direccion, numero_tarjeta)
+        self.original_nombre = nombre
+        self.original_apellido = apellido
+        self.original_direccion = direccion
+        self.original_numero_tarjeta = numero_tarjeta
+
     def mostrar_informacion_cliente(self):
         print("Información del cliente:")
-        print("Nombre:", self.nombre)
-        print("Apellido:", self.apellido)
-        print("Dirección:", self.direccion)
-        print("Número de tarjeta:", self.numero_tarjeta)
+        print(f"Nombre: {self.nombre}")
+        print(f"Apellido: {self.apellido}")
+        print(f"Dirección: {self.direccion}")
+        print(f"Número de tarjeta: {self.numero_tarjeta}")
+
+    def encriptar_informacion_cliente(self):
+        self.nombre = self.burbuja(self.nombre)
+        self.apellido = self.burbuja(self.apellido)
+        self.direccion = self.burbuja(self.direccion)
+        self.numero_tarjeta = self.burbuja(self.numero_tarjeta)
+        print("Información encriptada correctamente.")
+
+    def desencriptar_informacion_cliente(self):
+        self.nombre = self.original_nombre
+        self.apellido = self.original_apellido
+        self.direccion = self.original_direccion
+        self.numero_tarjeta = self.original_numero_tarjeta
+        print("Información desencriptada correctamente.")
+
+    @staticmethod
+    def burbuja(s):
+        arr = list(s)
+        n = len(arr)
+        for i in range(n):
+            for j in range(0, n-i-1):
+                if arr[j] > arr[j+1]:
+                    arr[j], arr[j+1] = arr[j+1], arr[j]
+        return ''.join(arr)
 
 
 if __name__ == "__main__":
-    cliente_protegido = ClienteSeguroProtegida("Juan", "Perez", "Calle 123", "1234")
-    
+    cliente_protegido = ClienteSeguroProtegida("Juan Lopez", "Perez del Campo", "Urb:Callao Calle 123", "76251734")
+
     print("Información del cliente antes de encriptar:")
-    cliente_protegido.mostrar_informacion()
-    
-    cliente_protegido.encriptar_informacion()
-    
+    cliente_protegido.mostrar_informacion_cliente()
+
+    cliente_protegido.encriptar_informacion_cliente()
+
     print("\nInformación del cliente después de encriptar:")
-    cliente_protegido.mostrar_informacion()
-    
-    cliente_protegido.desencriptar_informacion()
-    
+    cliente_protegido.mostrar_informacion_cliente()
+
+    cliente_protegido.desencriptar_informacion_cliente()
+
     print("\nInformación del cliente después de desencriptar:")
-    cliente_protegido.mostrar_informacion()
-
-
-
-    Cta_cred cta2;
-    cta2.cargarSaldo();
-    cout<<"la cuenta tiene saldo: "<<cta2.saldo<<endl;
-}
+    cliente_protegido.mostrar_informacion_cliente()
