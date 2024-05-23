@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+class Vehiculo 
+{
+    public:
+        void acelerar ()
+        {
+            cout << "Acelerando vehículo" << endl;
+        }
+        
+};
+
+class Coche : public Vehiculo
+{
+    public:
+        void acelerar ()
+        {
+            cout << "Acelerando coche" << endl;
+        }
+
+        void EncenderLuces()
+        {
+            cout << "Las luces del auto están encendedidas, estimado<3" << endl;
+        }
+};
+
+class Motocicleta : public Vehiculo
+{
+    public:
+        void acelerar()
+        {
+            cout << "Acelerando la motocileta" << endl;
+            cout << "Muchas gracias por mostrar el reemplazo y refinamiento" << endl;
+        }
+};
+
+int main()
+{
+    Coche MiCoche;   //la instancia
+    MiCoche.EncenderLuces(); // la instancia 3
+    MiCoche.acelerar();
+    Motocicleta MiMotocileta;   //la otra instancia
+    MiMotocileta.acelerar();
+    return 0;
+}
