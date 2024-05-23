@@ -1,0 +1,160 @@
+#include <iostream>
+
+using namespace std;
+
+// Clase abstracta Figura
+class Figura 
+{
+    public:
+        // Método virtual puro para calcular el área
+        virtual double calcularArea() const = 0;
+
+        // Destructor virtual
+        virtual ~Figura() {}
+};
+
+class Circulo : public Figura 
+{
+    private:
+        double radio;
+    public:
+        Circulo(double r) : radio(r) {}
+
+        double calcularArea() const override 
+        {
+            return 3.14159 * radio * radio;
+        }
+};
+
+class Rectangulo : public Figura 
+{
+    private:
+        double ancho;
+        double alto;
+    public:
+        Rectangulo(double a, double h) : ancho(a), alto(h) {}
+
+        double calcularArea() const override 
+        {
+            return ancho * alto;
+        }
+};
+
+class Triangulo : public Figura 
+{
+    private:
+        double base;
+        double altura;
+    public:
+        Triangulo(double b, double h) : base(b), altura(h) {}
+
+        double calcularArea() const override 
+        {
+            return (base * altura) / 2;
+        }
+};
+
+class Cuadrado : public Figura 
+{
+    private:
+        double lado;
+    public:
+        Cuadrado(double l) : lado(l) {}
+
+        double calcularArea() const override 
+        {
+            return lado * lado;
+        }
+};
+
+class Pentagono : public Figura 
+{
+    private:
+        double lado;
+        double apotema;
+    public:
+        Pentagono(double l, double a) : lado(l), apotema(a) {}
+
+        double calcularArea() const override 
+        {
+            return (5 * lado * apotema) / 2;
+        }
+};
+
+int main() 
+{
+    Figura* figura = nullptr;
+    int opcion;
+    
+    cout << "Elige una figura para calcular su área:" << endl;
+    cout << "1. Círculo" << endl;
+    cout << "2. Rectángulo" << endl;
+    cout << "3. Triángulo" << endl;
+    cout << "4. Cuadrado" << endl;
+    cout << "5. Pentágono" << endl;
+    cout << "Opción: ";
+    cin >> opcion;
+    
+    switch (opcion) 
+    {
+        case 1: 
+        {
+            double radio;
+            cout << "Introduce el radio del círculo: ";
+            cin >> radio;
+            figura = new Circulo(radio);
+            break;
+        }
+        case 2: 
+        {
+            double ancho, alto;
+            cout << "Introduce el ancho del rectángulo: ";
+            cin >> ancho;
+            cout << "Introduce el alto del rectángulo: ";
+            cin >> alto;
+            figura = new Rectangulo(ancho, alto);
+            break;
+        }
+        case 3: 
+        {
+            double base, altura;
+            cout << "Introduce la base del triángulo: ";
+            cin >> base;
+            cout << "Introduce la altura del triángulo: ";
+            cin >> altura;
+            figura = new Triangulo(base, altura);
+            break;
+        }
+        case 4: 
+        {
+            double lado;
+            cout << "Introduce el lado del cuadrado: ";
+            cin >> lado;
+            figura = new Cuadrado(lado);
+            break;
+        }
+        case 5: 
+        {
+            double lado, apotema;
+            cout << "Introduce el lado del pentágono: ";
+            cin >> lado;
+            cout << "Introduce la apotema del pentágono: ";
+            cin >> apotema;
+            figura = new Pentagono(lado, apotema);
+            break;
+        }
+        default: 
+        {
+            cout << "Opción no válida." << endl;
+            return 1;
+        }
+    }
+    
+    if (figura != nullptr) 
+    {
+        cout << "El área de la figura es: " << figura->calcularArea() << endl;
+        delete figura; // Liberar memoria
+    }
+    
+    return 0;
+}
