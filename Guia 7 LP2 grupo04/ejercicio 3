@@ -3,7 +3,7 @@
 using namespace std;
 
 class Movil {
-protected:
+private:
     string marca;
     string modelo;
     string sistema_operativo;
@@ -15,33 +15,55 @@ public:
 
     virtual ~Movil() {
     }
+
+    // Métodos públicos movidos a la sección privada
+private:
+    void mostrarInformacion() {
+        cout << "Marca: " << marca << endl;
+        cout << "Modelo: " << modelo << endl;
+        cout << "Sistema Operativo: " << sistema_operativo << endl;
+    }
 };
 
-class Telefono : public Movil {
+class Telefono : private Movil {
 public:
     Telefono(const string& marca, const string& modelo, const string& sistema_operativo)
         : Movil(marca, modelo, sistema_operativo) {
-
     }
 
     ~Telefono() {
     }
+
+    void mostrarInformacionTelefono() {
+        // Para acceder al método privado, necesitamos proporcionar una función intermediaria
+        Movil::mostrarInformacion();
+    }
 };
 
-class Tablet : public Movil {
+class Tablet : private Movil {
 public:
     Tablet(const string& marca, const string& modelo, const string& sistema_operativo)
         : Movil(marca, modelo, sistema_operativo) {
-        
     }
 
     ~Tablet() {
+    }
+
+    void mostrarInformacionTablet() {
+        // Para acceder al método privado, necesitamos proporcionar una función intermediaria
+        Movil::mostrarInformacion();
     }
 };
 
 int main() {
     Telefono telefono("Samsung", "Galaxy S20", "Android");
     Tablet tablet("Apple", "iPad Pro", "iPadOS");
+
+    cout << "Información del teléfono:" << endl;
+    telefono.mostrarInformacionTelefono();
+
+    cout << "\nInformación de la tablet:" << endl;
+    tablet.mostrarInformacionTablet();
 
     return 0;
 }
