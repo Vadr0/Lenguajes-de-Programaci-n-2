@@ -1,4 +1,3 @@
-Codigo en c++
 #include <iostream>
 #include <string>
 using namespace std;
@@ -8,29 +7,41 @@ protected:
     string nombre;
     int edad;
     float salario;
-    string email; 
-public:
-    Persona(string _nombre, int _edad, float _salario, string _email)
-        : nombre(_nombre), edad(_edad), salario(_salario), email(_email) {}
+    string email;
 
+    // Método protegido para mostrar información
     void mostrarInfo() const {
         cout << "Nombre y Apellido: " << nombre << endl;
         cout << "Edad: " << edad << endl;
         cout << "Salario: " << salario << endl;
         cout << "Email: " << email << endl;
     }
+
+public:
+    Persona(string _nombre, int _edad, float _salario, string _email)
+        : nombre(_nombre), edad(_edad), salario(_salario), email(_email) {}
 };
 
 class Empleado : public Persona {
 public:
     Empleado(string _nombre, int _edad, float _salario, string _email)
         : Persona(_nombre, _edad, _salario, _email) {}
+
+    // Método público para acceder al método protegido
+    void mostrarInfoEmpleado() const {
+        mostrarInfo();
+    }
 };
 
 class Cliente : public Persona {
 public:
     Cliente(string _nombre, int _edad, float _salario, string _email)
         : Persona(_nombre, _edad, _salario, _email) {}
+
+    // Método público para acceder al método protegido
+    void mostrarInfoCliente() const {
+        mostrarInfo();
+    }
 };
 
 int main() {
@@ -38,13 +49,14 @@ int main() {
     Cliente cliente("Ana", 25, 0, "ana@example.com");
 
     cout << "Información del Empleado:" << endl;
-    empleado.mostrarInfo();
+    empleado.mostrarInfoEmpleado();
     cout << endl;
     cout << "Información del Cliente:" << endl;
-    cliente.mostrarInfo();
+    cliente.mostrarInfoCliente();
 
     return 0;
 }
+
 -------------------------------------------------------------------------------------
 Codigo en Python
 class Persona:
