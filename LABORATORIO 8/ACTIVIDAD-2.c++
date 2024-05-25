@@ -8,7 +8,7 @@ public:
     virtual ~Forma() {} // Agregar un destructor virtual
 };
 
-// Resto del código sin cambios
+
 
 
 class Circulo : public Forma {
