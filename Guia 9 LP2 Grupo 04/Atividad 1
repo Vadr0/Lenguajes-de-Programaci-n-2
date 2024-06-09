@@ -1,0 +1,48 @@
+# Enlace Temprano (static binding)
+#include <iostream>
+using namespace std;
+class Animal {
+public:
+    void hacerSonido() {
+        cout << "El sonido que hace el animal" << endl;
+    }
+};
+
+class Perro : public Animal {
+public:
+    void hacerSonido() {
+        cout << "El perro ladra y suena Wauuu" << endl;
+    }
+};
+
+int main() {
+    Animal* miAnimal = new Perro();
+    miAnimal->hacerSonido(); 
+    delete miAnimal;
+    return 0;
+}
+
+# Enlace tardío (dynamic binding)
+#include <iostream>
+using namespace std;
+class Animal {
+public:
+    virtual void hacerSonido() {
+        cout << "El animal hace un sonido." << endl;
+    }
+    virtual ~Animal() {} // Destructores virtuales son una buena práctica en clases base
+};
+
+class Perro : public Animal {
+public:
+    void hacerSonido() override {
+        cout << "El perro ladra y dice Wauuu" << endl;
+    }
+};
+
+int main() {
+    Animal* miAnimal = new Perro();
+    miAnimal->hacerSonido(); 
+    delete miAnimal;
+    return 0;
+}
