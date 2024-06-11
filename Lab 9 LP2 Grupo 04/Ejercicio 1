@@ -1,0 +1,114 @@
+#include <iostream>
+
+using namespace std;
+
+// Clase base
+class Forma {
+public:
+    virtual double area() = 0;
+    virtual double perimetro() = 0;
+    virtual void mostrarInformacion() = 0;
+    virtual ~Forma() {}
+};
+
+class Rectangulo : public Forma {
+private:
+    double largo, ancho;
+public:
+    Rectangulo(double l, double a) : largo(l), ancho(a) {}
+    double area() override {
+        return largo * ancho;
+    }
+    double perimetro() override {
+        return 2 * (largo + ancho);
+    }
+    void mostrarInformacion() override {
+        cout << "Rectángulo: Largo = " << largo 
+             << ", Ancho = " << ancho 
+             << ", Área = " << area() 
+             << ", Perímetro = " << perimetro() 
+             << endl;
+    }
+};
+
+class Circulo : public Forma {
+private:
+    double radio;
+public:
+    Circulo(double r) : radio(r) {}
+    double area() override {
+        return 3.1416 * radio * radio; // Aproximación de Pi
+    }
+    double perimetro() override {
+        return 2 * 3.1416 * radio; // Aproximación de Pi
+    }
+    void mostrarInformacion() override {
+        cout << "Círculo: Radio = " << radio 
+             << ", Área = " << area() 
+             << ", Perímetro = " << perimetro() 
+             << endl;
+    }
+};
+
+class Triangulo : public Forma {
+private:
+    double base, altura, lado1, lado2, lado3;
+public:
+    Triangulo(double b, double h, double l1, double l2, double l3) 
+        : base(b), altura(h), lado1(l1), lado2(l2), lado3(l3) {}
+    double area() override {
+        return (base * altura) / 2;
+    }
+    double perimetro() override {
+        return lado1 + lado2 + lado3;
+    }
+    void mostrarInformacion() override {
+        cout << "Triángulo: Base = " << base 
+             << ", Altura = " << altura 
+             << ", Área = " << area() 
+             << ", Perímetro = " << perimetro() 
+             << endl;
+    }
+};
+
+
+class GestorDeFormas {
+private:
+    Forma* formas[4];
+    int cantidad;
+public:
+    GestorDeFormas() : cantidad(0) {}
+    void agregarForma(Forma* forma) {
+        if (cantidad < 4) {
+            formas[cantidad++] = forma;
+        } else {
+            cerr << "No se pueden agregar más formas, el gestor está lleno." << endl;
+        }
+    }
+    void mostrarFormas() {
+        for (int i = 0; i < cantidad; ++i) {
+            formas[i]->mostrarInformacion();
+        }
+    }
+    ~GestorDeFormas() {
+        for (int i = 0; i < cantidad; ++i) {
+            delete formas[i];  
+        }
+    }
+};
+
+int main() {
+    GestorDeFormas gestor;
+
+    Circulo* circulo = new Circulo(5);
+    Rectangulo* rectangulo = new Rectangulo(4, 7);
+    Triangulo* triangulo = new Triangulo(3, 6, 3, 4, 5);
+
+    gestor.agregarForma(circulo);
+    gestor.agregarForma(rectangulo);
+    gestor.agregarForma(triangulo);
+
+    gestor.mostrarFormas();
+
+    return 0;
+}
