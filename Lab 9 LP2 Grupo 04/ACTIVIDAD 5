@@ -1,0 +1,72 @@
+#include <iostream>
+using namespace std;
+
+// Clase abstracta FiguraGeometrica
+class FiguraGeometrica {
+public:
+    virtual double calcularArea() const = 0;
+    virtual double calcularPerimetro() const = 0;
+    virtual ~FiguraGeometrica() {}
+};
+
+class Circulo : public FiguraGeometrica {
+private:
+    double radio;
+public:
+    Circulo(double r) : radio(r) {}
+    double calcularArea() const override {
+        return 3.14 * radio * radio;
+    }
+    double calcularPerimetro() const override {
+        return 2 * 3.14 * radio;
+    }
+};
+
+class Rectangulo : public FiguraGeometrica {
+private:
+    double largo, ancho;
+public:
+    Rectangulo(double l, double a) : largo(l), ancho(a) {}
+    double calcularArea() const override {
+        return largo * ancho;
+    }
+    double calcularPerimetro() const override {
+        return 2 * (largo + ancho);
+    }
+};
+
+class Triangulo : public FiguraGeometrica {
+private:
+    double base, altura, lado1, lado2, lado3;
+public:
+    Triangulo(double b, double h, double l1, double l2, double l3)
+        : base(b), altura(h), lado1(l1), lado2(l2), lado3(l3) {}
+    double calcularArea() const override {
+        return (base * altura) / 2;
+    }
+    double calcularPerimetro() const override {
+        return lado1 + lado2 + lado3;
+    }
+};
+
+int main() {
+    FiguraGeometrica* figuras[3];
+
+    figuras[0] = new Circulo(5.0);
+    figuras[1] = new Rectangulo(4.0, 6.0);
+    figuras[2] = new Triangulo(3.0, 4.0, 3.0, 4.0, 5.0);
+
+    for (int i = 0; i < 3; ++i) {
+        cout << "Figura " << i+1 << ":" << endl;
+        cout << "Área: " << figuras[i]->calcularArea() << endl;
+        cout << "Perímetro: " << figuras[i]->calcularPerimetro() << endl;
+        cout << endl;
+    }
+
+    // Liberar memoria
+    for (int i = 0; i < 3; ++i) {
+        delete figuras[i];
+    }
+
+    return 0;
+}
