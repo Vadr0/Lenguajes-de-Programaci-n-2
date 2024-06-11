@@ -1,0 +1,133 @@
+#include <iostream>
+using namespace std;
+
+class Producto {
+protected:
+    string nombre;
+    double precio;
+    int cantidad;
+public:
+    Producto(string n = "", double p = 0, int c = 0) : nombre(n), precio(p), cantidad(c) {}
+
+    virtual double valorTotal() const {
+        return precio * cantidad;
+    }
+
+    virtual void aplicarDescuento() = 0;
+
+    virtual void mostrar() const {
+        cout << "Nombre: " << nombre << ", Precio: " << precio << ", Cantidad: " << cantidad;
+    }
+};
+
+class Electronico : public Producto {
+public:
+    Electronico(string n = "", double p = 0, int c = 0) : Producto(n, p, c) {}
+
+    void aplicarDescuento() override {
+        // Descuento del 10% para productos electrónicos
+        precio *= 0.9;
+    }
+
+    void mostrar() const override {
+        cout << "Electrónico -> ";
+        Producto::mostrar();
+        cout << endl;
+    }
+};
+
+class Ropa : public Producto {
+public:
+    Ropa(string n = "", double p = 0, int c = 0) : Producto(n, p, c) {}
+
+    void aplicarDescuento() override {
+        // Descuento del 20% para ropa
+        precio *= 0.8;
+    }
+
+    void mostrar() const override {
+        cout << "Ropa -> ";
+        Producto::mostrar();
+        cout << endl;
+    }
+};
+
+class Alimento : public Producto {
+public:
+    Alimento(string n = "", double p = 0, int c = 0) : Producto(n, p, c) {}
+
+    void aplicarDescuento() override {
+        // Descuento del 5% para alimentos
+        precio *= 0.95;
+    }
+
+    void mostrar() const override {
+        cout << "Alimento -> ";
+        Producto::mostrar();
+        cout << endl;
+    }
+};
+
+class Inventario {
+private:
+    Producto* productos[10]; // Array estática para almacenar hasta 10 productos
+    int numProductos;
+public:
+    Inventario() : numProductos(0) {}
+
+    void agregarProducto(Producto* p) {
+        if (numProductos < 10) {
+            productos[numProductos++] = p;
+        } else {
+            cout << "Inventario lleno, no se pueden agregar más productos." << endl;
+        }
+    }
+
+    double calcularValorTotal() const {
+        double total = 0;
+        for (int i = 0; i < numProductos; ++i) {
+            total += productos[i]->valorTotal();
+        }
+        return total;
+    }
+
+    void aplicarDescuentos() {
+        for (int i = 0; i < numProductos; ++i) {
+            productos[i]->aplicarDescuento();
+        }
+    }
+
+    void mostrarInventario() const {
+        for (int i = 0; i < numProductos; ++i) {
+            productos[i]->mostrar();
+        }
+    }
+
+    ~Inventario() {
+        for (int i = 0; i < numProductos; ++i) {
+            delete productos[i];
+        }
+    }
+};
+
+int main() {
+    Inventario inventario;
+
+    inventario.agregarProducto(new Electronico("Televisor", 1000, 5));
+    inventario.agregarProducto(new Ropa("Camiseta", 20, 50));
+    inventario.agregarProducto(new Alimento("Manzana", 1, 100));
+
+    cout << "Inventario antes de aplicar descuentos:" << endl;
+    inventario.mostrarInventario();
+
+    cout << "Valor total del inventario: $" << inventario.calcularValorTotal() << endl;
+
+    inventario.aplicarDescuentos();
+
+    cout << "\nInventario después de aplicar descuentos:" << endl;
+    inventario.mostrarInventario();
+
+    cout << "Valor total del inventario después de descuentos: $" << inventario.calcularValorTotal() << endl;
+
+    return 0;
+}
