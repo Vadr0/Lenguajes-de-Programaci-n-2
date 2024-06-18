@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+// Definición de la clase Ruta
 template<typename T>
 class Ruta {
 private:
@@ -8,6 +9,7 @@ private:
     string destino;
     T distancia;
     T tiempoEntrega;
+
 public:
     Ruta(string origen = "", string destino = "", T distancia = 0, T tiempoEntrega = 0)
         : origen(origen), destino(destino), distancia(distancia), tiempoEntrega(tiempoEntrega) {}
@@ -22,11 +24,14 @@ public:
              << ", Distancia: " << distancia << ", Tiempo de entrega: " << tiempoEntrega << endl;
     }
 };
+
+// Definición de la clase GestorRutas
 template<typename T, int N>
 class GestorRutas {
 private:
     Ruta<T> rutas[N];
     int numRutas;
+
 public:
     GestorRutas() : numRutas(0) {}
 
@@ -45,9 +50,11 @@ public:
     }
 
     void optimizarRutas() {
+        // Ordenamiento básico por tiempo de entrega (bubble sort)
         for (int i = 0; i < numRutas - 1; ++i) {
             for (int j = 0; j < numRutas - i - 1; ++j) {
                 if (rutas[j].getTiempoEntrega() > rutas[j + 1].getTiempoEntrega()) {
+                    // Intercambio de rutas
                     Ruta<T> temp = rutas[j];
                     rutas[j] = rutas[j + 1];
                     rutas[j + 1] = temp;
@@ -56,17 +63,20 @@ public:
         }
     }
 };
+
+// Función de plantilla para ordenar y mostrar las rutas
 template<typename T, int N>
-void agregarVariasRutas(GestorRutas<T, N>& gestor, Ruta<T> nuevasRutas[], int numNuevasRutas) {
-    for (int i = 0; i < numNuevasRutas; ++i) {
-        gestor.agregarRuta(nuevasRutas[i]);
-    }
+void ordenarYMostrarRutas(GestorRutas<T, N>& gestor) {
+    // Optimizar rutas antes de mostrarlas
+    gestor.optimizarRutas();
+    cout << "Rutas ordenadas por tiempo de entrega:" << endl;
+    gestor.mostrarRutas();
 }
 int main() {
     // Crear algunas rutas de ejemplo
-    Ruta<int> ruta1("A", "B", 100, 2);
-    Ruta<int> ruta2("A", "C", 150, 3);
-    Ruta<int> ruta3("B", "C", 50, 1);
+    Ruta<int> ruta1("cerro colorado", "sachaca", 500, 15);
+    Ruta<int> ruta2("Joseluis Bustamante y Ribero", "tiabaya", 3000, 45);
+    Ruta<int> ruta3("tiabaya", "Univeridad Catolica Santa Maria", 5000, 45);
 
     // Crear un gestor de rutas con capacidad para 10 rutas
     GestorRutas<int, 10> gestor;
@@ -77,11 +87,8 @@ int main() {
     cout << "Rutas antes de optimizar:" << endl;
     gestor.mostrarRutas();
 
-    // Optimizar rutas
-    gestor.optimizarRutas();
-
-    cout << "\nRutas después de optimizar:" << endl;
-    gestor.mostrarRutas();
+    // Llamar a la función de plantilla para ordenar y mostrar las rutas
+    ordenarYMostrarRutas(gestor);
 
     return 0;
 }
