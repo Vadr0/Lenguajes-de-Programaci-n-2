@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+
+template<typename T>
+class Ruta {
+private:
+    string origen;
+    string destino;
+    T distancia;
+    T tiempoEntrega;
+public:
+    Ruta(string origen = "", string destino = "", T distancia = 0, T tiempoEntrega = 0)
+        : origen(origen), destino(destino), distancia(distancia), tiempoEntrega(tiempoEntrega) {}
+
+    string getOrigen() const { return origen; }
+    string getDestino() const { return destino; }
+    T getDistancia() const { return distancia; }
+    T getTiempoEntrega() const { return tiempoEntrega; }
+
+    void mostrarRuta() const {
+        cout << "Origen: " << origen << ", Destino: " << destino
+             << ", Distancia: " << distancia << ", Tiempo de entrega: " << tiempoEntrega << endl;
+    }
+};
+template<typename T, int N>
+class GestorRutas {
+private:
+    Ruta<T> rutas[N];
+    int numRutas;
+public:
+    GestorRutas() : numRutas(0) {}
+
+    void agregarRuta(const Ruta<T>& ruta) {
+        if (numRutas < N) {
+            rutas[numRutas++] = ruta;
+        } else {
+            cout << "Capacidad máxima de rutas alcanzada." << endl;
+        }
+    }
+
+    void mostrarRutas() const {
+        for (int i = 0; i < numRutas; ++i) {
+            rutas[i].mostrarRuta();
+        }
+    }
+
+    void optimizarRutas() {
+        for (int i = 0; i < numRutas - 1; ++i) {
+            for (int j = 0; j < numRutas - i - 1; ++j) {
+                if (rutas[j].getTiempoEntrega() > rutas[j + 1].getTiempoEntrega()) {
+                    Ruta<T> temp = rutas[j];
+                    rutas[j] = rutas[j + 1];
+                    rutas[j + 1] = temp;
+                }
+            }
+        }
+    }
+};
+template<typename T, int N>
+void agregarVariasRutas(GestorRutas<T, N>& gestor, Ruta<T> nuevasRutas[], int numNuevasRutas) {
+    for (int i = 0; i < numNuevasRutas; ++i) {
+        gestor.agregarRuta(nuevasRutas[i]);
+    }
+}
+int main() {
+    // Crear algunas rutas de ejemplo
+    Ruta<int> ruta1("A", "B", 100, 2);
+    Ruta<int> ruta2("A", "C", 150, 3);
+    Ruta<int> ruta3("B", "C", 50, 1);
+
+    // Crear un gestor de rutas con capacidad para 10 rutas
+    GestorRutas<int, 10> gestor;
+    gestor.agregarRuta(ruta1);
+    gestor.agregarRuta(ruta2);
+    gestor.agregarRuta(ruta3);
+
+    cout << "Rutas antes de optimizar:" << endl;
+    gestor.mostrarRutas();
+
+    // Optimizar rutas
+    gestor.optimizarRutas();
+
+    cout << "\nRutas después de optimizar:" << endl;
+    gestor.mostrarRutas();
+
+    return 0;
+}
