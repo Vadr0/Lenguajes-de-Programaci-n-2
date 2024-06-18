@@ -1,0 +1,286 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Producto {
+protected:
+    string nombre;
+    double precio;
+    int codigo;
+
+public:
+    Producto(string nombre, double precio, int codigo) : nombre(nombre), precio(precio), codigo(codigo) {}
+
+    virtual ~Producto() {} // Destructor virtual
+
+    virtual void mostrarDetalles() const {
+        cout << "Nombre: " << nombre << endl;
+        cout << "Precio: " << precio << endl;
+        cout << "Código: " << codigo << endl;
+    }
+
+    int obtenerCodigo() const {
+        return codigo;
+    }
+};
+
+class Libro : public Producto {
+private:
+    string autor;
+
+public:
+    Libro(string nombre, double precio, int codigo, string autor) : Producto(nombre, precio, codigo), autor(autor) {}
+
+    void mostrarDetalles() const override {
+        Producto::mostrarDetalles();
+        cout << "Autor: " << autor << endl;
+    }
+};
+
+class Electronico : public Producto {
+private:
+    string marca;
+
+public:
+    Electronico(string nombre, double precio, int codigo, string marca) : Producto(nombre, precio, codigo), marca(marca) {}
+
+    void mostrarDetalles() const override {
+        Producto::mostrarDetalles();
+        cout << "Marca: " << marca << endl;
+    }
+};
+
+class Ropa : public Producto {
+private:
+    string talla;
+
+public:
+    Ropa(string nombre, double precio, int codigo, string talla) : Producto(nombre, precio, codigo), talla(talla) {}
+
+    void mostrarDetalles() const override {
+        Producto::mostrarDetalles();
+        cout << "Talla: " << talla << endl;
+    }
+};
+
+class Comida : public Producto {
+private:
+    string fechaVencimiento;
+
+public:
+    Comida(string nombre, double precio, int codigo, string fechaVencimiento) : Producto(nombre, precio, codigo), fechaVencimiento(fechaVencimiento) {}
+
+    void mostrarDetalles() const override {
+        Producto::mostrarDetalles();
+        cout << "Fecha de vencimiento: " << fechaVencimiento << endl;
+    }
+};
+
+class Juguete : public Producto {
+private:
+    string material;
+
+public:
+    Juguete(string nombre, double precio, int codigo, string material) : Producto(nombre, precio, codigo), material(material) {}
+
+    void mostrarDetalles() const override {
+        Producto::mostrarDetalles();
+        cout << "Material: " << material << endl;
+    }
+};
+
+class Mueble : public Producto {
+private:
+    string material;
+
+public:
+    Mueble(string nombre, double precio, int codigo, string material) : Producto(nombre, precio, codigo), material(material) {}
+
+    void mostrarDetalles() const override {
+        Producto::mostrarDetalles();
+        cout << "Material: " << material << endl;
+    }
+};
+
+template <typename T>
+class Inventario {
+private:
+    T** productos;
+    int cantidad;
+    int capacidad;
+
+    void expandir() {
+        capacidad *= 2;
+        T** nuevosProductos = new T*[capacidad];
+        for (int i = 0; i < cantidad; i++) {
+            nuevosProductos[i] = productos[i];
+        }
+        delete[] productos;
+        productos = nuevosProductos;
+    }
+
+public:
+    Inventario() : cantidad(0), capacidad(10) {
+        productos = new T*[capacidad];
+    }
+
+    ~Inventario() {
+        for (int i = 0; i < cantidad; i++) {
+            delete productos[i];
+        }
+        delete[] productos;
+    }
+
+    void agregar(T* producto) {
+        if (cantidad == capacidad) {
+            expandir();
+        }
+        productos[cantidad++] = producto;
+    }
+
+    void eliminar(int codigo) {
+        for (int i = 0; i < cantidad; i++) {
+            if (productos[i]->obtenerCodigo() == codigo) {
+                delete productos[i];
+                for (int j = i; j < cantidad - 1; j++) {
+                    productos[j] = productos[j + 1];
+                }
+                cantidad--;
+                return;
+            }
+        }
+        cout << "Producto no encontrado." << endl;
+    }
+
+    T* buscar(int codigo) const {
+        for (int i = 0; i < cantidad; i++) {
+            if (productos[i]->obtenerCodigo() == codigo) {
+                return productos[i];
+            }
+        }
+        return 0;
+    }
+
+    void listar() const {
+        for (int i = 0; i < cantidad; i++) {
+            productos[i]->mostrarDetalles();
+            cout << endl;
+        }
+    }
+};
+
+int main() {
+    Inventario<Producto> inventario;
+
+    int opcion;
+    do {
+        cout << "1. Agregar producto" << endl;
+        cout << "2. Eliminar producto" << endl;
+        cout << "3. Buscar producto" << endl;
+        cout << "4. Listar productos" << endl;
+        cout << "5. Salir" << endl;
+        cout << "Opción: ";
+        cin >> opcion;
+        cin.ignore(); // Limpiar el buffer de entrada
+
+        switch (opcion) {
+            case 1: {
+                string nombre;
+                double precio;
+                int codigo;
+                cout << "Nombre: ";
+                getline(cin, nombre);
+                cout << "Precio: ";
+                cin >> precio;
+                cout << "Código: ";
+                cin >> codigo;
+                cin.ignore(); // Limpiar el buffer de entrada
+
+                int tipo;
+                cout << "Tipo de producto (1. Libro, 2. Electrónico, 3. Ropa, 4. Comida, 5. Juguete, 6. Mueble): ";
+                cin >> tipo;
+                cin.ignore(); // Limpiar el buffer de entrada
+
+                switch (tipo) {
+                    case 1: {
+                        string autor;
+                        cout << "Autor: ";
+                        getline(cin, autor);
+                        inventario.agregar(new Libro(nombre, precio, codigo, autor));
+                        break;
+                    }
+                    case 2: {
+                        string marca;
+                        cout << "Marca: ";
+                        getline(cin, marca);
+                        inventario.agregar(new Electronico(nombre, precio, codigo, marca));
+                        break;
+                    }
+                    case 3: {
+                        string talla;
+                        cout << "Talla: ";
+                        getline(cin, talla);
+                        inventario.agregar(new Ropa(nombre, precio, codigo, talla));
+                        break;
+                    }
+                    case 4: {
+                        string fechaVencimiento;
+                        cout << "Fecha de vencimiento: ";
+                        getline(cin, fechaVencimiento);
+                        inventario.agregar(new Comida(nombre, precio, codigo, fechaVencimiento));
+                        break;
+                    }
+                    case 5: {
+                        string material;
+                        cout << "Material: ";
+                        getline(cin, material);
+                        inventario.agregar(new Juguete(nombre, precio, codigo, material));
+                        break;
+                    }
+                    case 6: {
+                        string material;
+                        cout << "Material: ";
+                        getline(cin, material);
+                        inventario.agregar(new Mueble(nombre, precio, codigo, material));
+                        break;
+                    }
+                    default:
+                        cout << "Tipo de producto no válido" << endl;
+                        break;
+                }
+                break;
+            }
+            case 2: {
+                int codigo;
+                cout << "Código del producto a eliminar: ";
+                cin >> codigo;
+                inventario.eliminar(codigo);
+                break;
+            }
+            case 3: {
+                int codigo;
+                cout << "Código del producto a buscar: ";
+                cin >> codigo;
+                Producto* producto = inventario.buscar(codigo);
+                if (producto != 0) {
+                    producto->mostrarDetalles();
+                } else {
+                    cout << "Producto no encontrado" << endl;
+                }
+                break;
+            }
+            case 4:
+                inventario.listar();
+                break;
+            case 5:
+                cout << "Saliendo del programa..." << endl;
+                break;
+            default:
+                cout << "Opción no válida" << endl;
+                break;
+        }
+    } while (opcion != 5);
+
+    return 0;
+}
