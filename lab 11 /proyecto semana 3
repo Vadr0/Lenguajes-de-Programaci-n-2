@@ -235,7 +235,7 @@ public:
                 return productos[i];
             }
         }
-        return nullptr;
+        return 0;
     }
 
     void listar() const {
@@ -454,7 +454,7 @@ int main() {
                     cout << "Código del producto a buscar: ";
                 }
                 Producto* producto = inventario.buscar(codigo);
-                if (producto != nullptr) {
+                if (producto != 0) {
                     producto->mostrarDetalles();
                 } else {
                     cout << "Producto no encontrado" << endl;
