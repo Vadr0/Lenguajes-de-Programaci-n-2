@@ -1,0 +1,64 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    vector<int> numeros;
+    int num;
+
+    cout << "Ingrese una lista de números enteros (ingrese -1 para terminar):\n";
+
+    while (true) {
+        cin >> num;
+        if (num == -1) break;
+        numeros.push_back(num);
+    }
+
+    // a) Calcular la suma de todos los números manualmente
+    int suma = 0;
+    for (int n : numeros) {
+        suma += n;
+    }
+
+    // b) Encontrar el número máximo y mínimo en la lista
+    int max_num = numeros[0];
+    int min_num = numeros[0];
+    for (int n : numeros) {
+        if (n > max_num) max_num = n;
+        if (n < min_num) min_num = n;
+    }
+
+    // c) Ordenar los números de forma ascendente usando bubble sort
+    for (size_t i = 0; i < numeros.size(); ++i) {
+        for (size_t j = 0; j < numeros.size() - 1; ++j) {
+            if (numeros[j] > numeros[j + 1]) {
+                int temp = numeros[j];
+                numeros[j] = numeros[j + 1];
+                numeros[j + 1] = temp;
+            }
+        }
+    }
+
+    // d) Eliminar los números pares del contenedor
+    vector<int> impares;
+    for (int n : numeros) {
+        if (n % 2 != 0) {
+            impares.push_back(n);
+        }
+    }
+    numeros = impares;
+
+    // Mostrar resultados
+    cout << "Suma de todos los números: " << suma << '\n';
+    cout << "Número máximo: " << max_num << '\n';
+    cout << "Número mínimo: " << min_num << '\n';
+
+    cout << "Contenido del contenedor después de ordenar y eliminar números pares:\n";
+    for (int n : numeros) {
+        cout << n << ' ';
+    }
+    cout << '\n';
+
+    return 0;
+}
