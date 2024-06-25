@@ -1,0 +1,113 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+struct Producto {
+    int codigo;
+    string descripcion;
+    int cantidad;
+};
+
+void agregarProducto(vector<Producto>& inventario) {
+    Producto nuevoProducto;
+    cout << "Ingrese el código del producto: ";
+    cin >> nuevoProducto.codigo;
+    cout << "Ingrese la descripción del producto: ";
+    cin.ignore();
+    getline(cin, nuevoProducto.descripcion);
+    cout << "Ingrese la cantidad disponible del producto: ";
+    cin >> nuevoProducto.cantidad;
+    inventario.push_back(nuevoProducto);
+    cout << "Producto agregado exitosamente.\n";
+}
+
+void actualizarCantidad(vector<Producto>& inventario) {
+    int codigo;
+    cout << "Ingrese el código del producto a actualizar: ";
+    cin >> codigo;
+    for (auto& producto : inventario) {
+        if (producto.codigo == codigo) {
+            cout << "Ingrese la nueva cantidad disponible: ";
+            cin >> producto.cantidad;
+            cout << "Cantidad actualizada exitosamente.\n";
+            return;
+        }
+    }
+    cout << "Producto no encontrado.\n";
+}
+
+void buscarProducto(const vector<Producto>& inventario) {
+    int codigo;
+    cout << "Ingrese el código del producto a buscar: ";
+    cin >> codigo;
+    for (const auto& producto : inventario) {
+        if (producto.codigo == codigo) {
+            cout << "Código: " << producto.codigo << "\n";
+            cout << "Descripción: " << producto.descripcion << "\n";
+            cout << "Cantidad: " << producto.cantidad << "\n";
+            return;
+        }
+    }
+    cout << "Producto no encontrado.\n";
+}
+
+void mostrarProductos(const vector<Producto>& inventario) {
+    // Ordenar los productos alfabéticamente por descripción usando bubble sort
+    vector<Producto> inventarioOrdenado = inventario;
+    for (size_t i = 0; i < inventarioOrdenado.size(); ++i) {
+        for (size_t j = 0; j < inventarioOrdenado.size() - 1; ++j) {
+            if (inventarioOrdenado[j].descripcion > inventarioOrdenado[j + 1].descripcion) {
+                Producto temp = inventarioOrdenado[j];
+                inventarioOrdenado[j] = inventarioOrdenado[j + 1];
+                inventarioOrdenado[j + 1] = temp;
+            }
+        }
+    }
+
+    for (const auto& producto : inventarioOrdenado) {
+        cout << "Código: " << producto.codigo << "\n";
+        cout << "Descripción: " << producto.descripcion << "\n";
+        cout << "Cantidad: " << producto.cantidad << "\n";
+    }
+}
+
+int main() {
+    vector<Producto> inventario;
+    int opcion;
+
+    while (true) {
+        cout << "\nGestión de Inventario\n";
+        cout << "1. Agregar un nuevo producto\n";
+        cout << "2. Actualizar la cantidad de un producto existente\n";
+        cout << "3. Buscar un producto por su código\n";
+        cout << "4. Mostrar la lista de productos ordenada alfabéticamente\n";
+        cout << "5. Salir\n";
+        cout << "Seleccione una opción: ";
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                agregarProducto(inventario);
+                break;
+            case 2:
+                actualizarCantidad(inventario);
+                break;
+            case 3:
+                buscarProducto(inventario);
+                break;
+            case 4:
+                mostrarProductos(inventario);
+                break;
+            case 5:
+                cout << "Saliendo del programa.\n";
+                return 0;
+            default:
+                cout << "Opción no válida. Intente nuevamente.\n";
+                break;
+        }
+    }
+
+    return 0;
+}
