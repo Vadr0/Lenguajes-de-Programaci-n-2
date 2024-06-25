@@ -1,6 +1,6 @@
-1,Libro1,25.5,1001,Autor1
-2,Electrónico1,199.99,1002,Marca1
-3,Ropa1,39.99,1003,Talla M
-5,Juguete1,12.75,1005,Plástico
-6,Mueble1,149.99,1006,Madera
-6,Mueble 2,200,1008,roble
+1,Libro,25.5,1001,Autor1
+2,Electrónico,199.99,1002,Marca1
+3,Ropa,39.99,1003,Talla M
+5,Juguete,12.75,1005,Plástico
+6,Mueble,149.99,1006,Madera
+6,Mueble2,200,1008,roble
