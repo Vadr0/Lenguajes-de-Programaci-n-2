@@ -1,0 +1,117 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+// Estructura para representar un contacto
+struct Contacto {
+    string nombre;
+    string telefono;
+    string correo;
+};
+
+// Función para mostrar un contacto
+void mostrarContacto(const Contacto& contacto) {
+    cout << "Nombre: " << contacto.nombre << ", Teléfono: " << contacto.telefono << ", Correo electrónico: " << contacto.correo << endl;
+}
+
+// Función para agregar un nuevo contacto
+void agregarContacto(vector<Contacto>& contactos) {
+    Contacto nuevoContacto;
+    cout << "Ingrese el nombre del contacto: ";
+    getline(cin, nuevoContacto.nombre);
+    cout << "Ingrese el número de teléfono: ";
+    getline(cin, nuevoContacto.telefono);
+    cout << "Ingrese la dirección de correo electrónico: ";
+    getline(cin, nuevoContacto.correo);
+    contactos.push_back(nuevoContacto);
+    cout << "Contacto agregado exitosamente.\n";
+}
+
+// Función para buscar un contacto por nombre
+void buscarContacto(const vector<Contacto>& contactos) {
+    string nombre;
+    cout << "Ingrese el nombre del contacto a buscar: ";
+    getline(cin, nombre);
+    for (const auto& contacto : contactos) {
+        if (contacto.nombre == nombre) {
+            cout << "Contacto encontrado:\n";
+            mostrarContacto(contacto);
+            return;
+        }
+    }
+    cout << "Contacto no encontrado.\n";
+}
+
+// Función para actualizar un contacto existente
+void actualizarContacto(vector<Contacto>& contactos) {
+    string nombre;
+    cout << "Ingrese el nombre del contacto a actualizar: ";
+    getline(cin, nombre);
+    for (auto& contacto : contactos) {
+        if (contacto.nombre == nombre) {
+            cout << "Ingrese el nuevo número de teléfono (actual: " << contacto.telefono << "): ";
+            getline(cin, contacto.telefono);
+            cout << "Ingrese la nueva dirección de correo electrónico (actual: " << contacto.correo << "): ";
+            getline(cin, contacto.correo);
+            cout << "Contacto actualizado exitosamente.\n";
+            return;
+        }
+    }
+    cout << "Contacto no encontrado.\n";
+}
+
+// Función para mostrar la lista de contactos ordenada alfabéticamente
+void mostrarContactos(vector<Contacto>& contactos) {
+    // Ordenar manualmente el vector de contactos
+    for (size_t i = 0; i < contactos.size(); ++i) {
+        for (size_t j = i + 1; j < contactos.size(); ++j) {
+            if (contactos[i].nombre > contactos[j].nombre) {
+                swap(contactos[i], contactos[j]);
+            }
+        }
+    }
+    cout << "Lista de contactos:\n";
+    for (const auto& contacto : contactos) {
+        mostrarContacto(contacto);
+    }
+}
+
+int main() {
+    vector<Contacto> contactos;
+    int opcion;
+
+    do {
+        cout << "\nMenú de la Agenda de Contactos\n";
+        cout << "1. Agregar un nuevo contacto\n";
+        cout << "2. Buscar un contacto por nombre\n";
+        cout << "3. Actualizar la información de un contacto\n";
+        cout << "4. Mostrar la lista de contactos ordenada alfabéticamente\n";
+        cout << "5. Salir\n";
+        cout << "Seleccione una opción: ";
+        cin >> opcion;
+        cin.ignore(); // Limpiar el buffer de entrada
+
+        switch (opcion) {
+            case 1:
+                agregarContacto(contactos);
+                break;
+            case 2:
+                buscarContacto(contactos);
+                break;
+            case 3:
+                actualizarContacto(contactos);
+                break;
+            case 4:
+                mostrarContactos(contactos);
+                break;
+            case 5:
+                cout << "Saliendo del programa...\n";
+                break;
+            default:
+                cout << "Opción inválida. Intente nuevamente.\n";
+        }
+    } while (opcion != 5);
+
+    return 0;
+}
