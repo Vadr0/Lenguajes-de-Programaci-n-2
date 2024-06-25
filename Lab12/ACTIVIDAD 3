@@ -1,0 +1,44 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    // Paso 1: Ingresar la cadena de caracteres y almacenarla en un contenedor
+    string input;
+    cout << "Ingrese una cadena de caracteres: ";
+    getline(cin, input);
+
+    vector<char> characters(input.begin(), input.end());
+
+    // Paso 2a: Utilizar un iterador para recorrer el contenedor y mostrar los caracteres uno por uno
+    cout << "Caracteres ingresados: ";
+    for (vector<char>::iterator it = characters.begin(); it != characters.end(); ++it) {
+        cout << *it << ' ';
+    }
+    cout << endl;
+
+    // Paso 2b: Reemplazar todas las vocales en el contenedor con el carácter '*' utilizando un iterador
+    for (vector<char>::iterator it = characters.begin(); it != characters.end(); ++it) {
+        char c = *it;
+        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+            c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') {
+            *it = '*';
+        }
+    }
+
+    // Paso 2c: Utilizar un iterador inverso para mostrar los caracteres del contenedor en orden inverso
+    cout << "Caracteres en orden inverso: ";
+    for (vector<char>::reverse_iterator rit = characters.rbegin(); rit != characters.rend(); ++rit) {
+        cout << *rit << ' ';
+    }
+    cout << endl;
+
+    // Mostrar la cadena resultante después de aplicar las modificaciones
+    cout << "Cadena resultante: ";
+    for (vector<char>::iterator it = characters.begin(); it != characters.end(); ++it) {
+        cout << *it;
+    }
+    cout << endl;
+
+    return 0;
+}
